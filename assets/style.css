@@ -1,0 +1,218 @@
+/* ==========================================================================
+   OxoHotel · Sistema de Créditos — Estilo compartido para manuales de usuario
+   Paleta y tipografía tomadas de la app real (Panel de control / Formulario)
+   ========================================================================== */
+
+:root {
+  --navy:        #49677a;
+  --navy2:       #3d5a6b;
+  --navy-dark:   #1e2d3d;
+  --gold:        #c19528;
+  --gold2:       #d4a82f;
+
+  --text:        #2c3e50;
+  --text2:       #606060;
+  --muted:       #9a9a9a;
+
+  --bg:          #f0f2f6;
+  --surface:     #ffffff;
+  --surface2:    #f5f7fa;
+  --surface3:    #eef1f5;
+
+  --success:     #1a6e3c;
+  --success-bg:  #edfbf3;
+  --danger:      #dc2626;
+  --danger-bg:   #fef2f2;
+  --warning:     #e65c00;
+  --warning-bg:  #fff4e8;
+  --info:        #2563eb;
+  --info-bg:     #eff6ff;
+
+  --radius:      14px;
+  --radius-sm:   8px;
+  --shadow:      0 4px 18px rgba(30, 45, 61, 0.08);
+  --shadow-lg:   0 12px 32px rgba(30, 45, 61, 0.14);
+  --font:        'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono:        'DM Mono', 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+}
+
+/* ─── Portada ────────────────────────────────────────────────────────── */
+.manual-hero {
+  background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy2) 55%, var(--navy) 100%);
+  color: #fff;
+  padding: 56px 8vw 64px;
+  position: relative;
+  overflow: hidden;
+}
+.manual-hero::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 85% 20%, rgba(212,168,47,.20), transparent 55%);
+  pointer-events: none;
+}
+.manual-hero-top {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 34px;
+}
+.manual-hero-top img { height: 38px; width: auto; filter: brightness(0) invert(1); }
+.manual-hero-top .brand-name { font-weight: 700; letter-spacing: .04em; font-size: 15px; color: rgba(255,255,255,.9); }
+.manual-hero-top .brand-sub { font-size: 11px; color: rgba(255,255,255,.55); letter-spacing: .03em; }
+.manual-kicker {
+  display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--gold2); background: rgba(212,168,47,.14);
+  border: 1px solid rgba(212,168,47,.35); padding: 5px 14px; border-radius: 999px; margin-bottom: 18px;
+}
+.manual-hero h1 { font-size: clamp(28px, 4vw, 42px); margin: 0 0 12px; font-weight: 700; max-width: 820px; }
+.manual-hero p.lead { font-size: 16px; color: rgba(255,255,255,.78); max-width: 680px; margin: 0; }
+.manual-hero-meta { display: flex; gap: 28px; margin-top: 30px; flex-wrap: wrap; }
+.manual-hero-meta div { font-size: 12.5px; color: rgba(255,255,255,.6); }
+.manual-hero-meta strong { display: block; color: #fff; font-size: 14px; font-weight: 600; }
+
+/* ─── Layout con TOC lateral ─────────────────────────────────────────── */
+.manual-body {
+  display: grid;
+  grid-template-columns: 270px minmax(0, 1fr);
+  gap: 0;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.manual-toc {
+  position: sticky; top: 0; align-self: start;
+  height: 100vh; overflow-y: auto;
+  padding: 32px 20px 40px 8vw;
+  border-right: 1px solid #e2e6ec;
+  background: var(--surface);
+}
+.manual-toc h4 {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--muted); margin: 0 0 12px;
+}
+.manual-toc a {
+  display: block; padding: 7px 10px; margin-bottom: 2px; border-radius: var(--radius-sm);
+  color: var(--text2); text-decoration: none; font-size: 13.5px; font-weight: 500;
+  border-left: 2px solid transparent;
+}
+.manual-toc a:hover { background: var(--surface2); color: var(--navy2); }
+.manual-toc a.toc-sub { padding-left: 22px; font-size: 12.5px; color: var(--muted); font-weight: 400; }
+.manual-toc .toc-group { margin-bottom: 18px; }
+
+.manual-content { padding: 48px 6vw 100px 5vw; max-width: 980px; }
+
+/* ─── Secciones ──────────────────────────────────────────────────────── */
+section.m-section { margin-bottom: 56px; scroll-margin-top: 24px; }
+.m-section h2 {
+  font-size: 24px; font-weight: 700; color: var(--navy2);
+  display: flex; align-items: center; gap: 12px;
+  padding-bottom: 14px; border-bottom: 2px solid var(--surface3); margin-bottom: 22px;
+}
+.m-section h2 .m-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 10px; background: var(--navy2); color: #fff;
+  font-size: 15px; flex-shrink: 0;
+}
+.m-section h3 { font-size: 17px; font-weight: 700; color: var(--text); margin: 30px 0 12px; }
+.m-section p { color: var(--text2); font-size: 15px; }
+.m-section ul, .m-section ol { color: var(--text2); font-size: 15px; padding-left: 22px; }
+.m-section li { margin-bottom: 6px; }
+
+/* ─── Pasos numerados ────────────────────────────────────────────────── */
+.step {
+  display: grid; grid-template-columns: 40px 1fr; gap: 16px;
+  margin-bottom: 26px; padding-bottom: 26px; border-bottom: 1px dashed #e2e6ec;
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+  width: 40px; height: 40px; border-radius: 50%; background: var(--surface3);
+  color: var(--navy2); font-weight: 700; font-size: 15px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.step-body h4 { margin: 4px 0 6px; font-size: 15.5px; font-weight: 700; color: var(--text); }
+.step-body p { margin: 0 0 10px; }
+
+/* ─── Capturas de pantalla ───────────────────────────────────────────── */
+figure.shot {
+  margin: 14px 0 22px; background: var(--surface); border: 1px solid #e2e6ec;
+  border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; max-width: 720px;
+}
+figure.shot img { display: block; width: 100%; height: auto; }
+figure.shot figcaption {
+  padding: 10px 16px; font-size: 12.5px; color: var(--muted);
+  border-top: 1px solid #eef1f5; background: var(--surface2);
+}
+.shot-row { display: flex; gap: 18px; flex-wrap: wrap; }
+.shot-row figure.shot { flex: 1 1 320px; max-width: 100%; }
+
+/* ─── Callouts ───────────────────────────────────────────────────────── */
+.callout {
+  display: flex; gap: 12px; padding: 14px 18px; border-radius: var(--radius-sm);
+  margin: 16px 0; font-size: 14px; border: 1px solid transparent;
+}
+.callout .callout-ico { font-size: 17px; line-height: 1; flex-shrink: 0; }
+.callout strong { display: block; margin-bottom: 2px; }
+.callout.tip     { background: var(--info-bg);    border-color: #bfdbfe; color: #1e3a8a; }
+.callout.warning { background: var(--warning-bg); border-color: #fed7aa; color: #9a3412; }
+.callout.danger  { background: var(--danger-bg);  border-color: #fecaca; color: #991b1b; }
+.callout.success { background: var(--success-bg); border-color: #bbf7d0; color: #14532d; }
+
+/* ─── Tablas ──────────────────────────────────────────────────────────── */
+table.m-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13.5px; }
+table.m-table th {
+  text-align: left; background: var(--navy2); color: #fff; padding: 10px 14px;
+  font-weight: 600; font-size: 12.5px; text-transform: uppercase; letter-spacing: .03em;
+}
+table.m-table td { padding: 10px 14px; border-bottom: 1px solid #eef1f5; color: var(--text2); }
+table.m-table tr:last-child td { border-bottom: none; }
+table.m-table tr:nth-child(even) td { background: var(--surface2); }
+
+/* ─── Badges de rol / estado ─────────────────────────────────────────── */
+.badge {
+  display: inline-block; padding: 3px 10px; border-radius: 999px;
+  font-size: 11.5px; font-weight: 700; letter-spacing: .02em;
+}
+.badge.navy { background: #e7edf1; color: var(--navy2); }
+.badge.gold { background: #fbf1d9; color: #8a6a17; }
+.badge.success { background: var(--success-bg); color: var(--success); }
+.badge.danger { background: var(--danger-bg); color: var(--danger); }
+.badge.warning { background: var(--warning-bg); color: var(--warning); }
+
+kbd {
+  background: var(--navy-dark); color: #fff; border-radius: 4px; padding: 2px 6px;
+  font-family: var(--mono); font-size: 11.5px;
+}
+
+/* ─── Índice de acceso rápido / FAQ ───────────────────────────────────── */
+.faq-item { border: 1px solid #e2e6ec; border-radius: var(--radius-sm); margin-bottom: 10px; padding: 14px 16px; background: var(--surface); }
+.faq-item strong { display: block; color: var(--navy2); margin-bottom: 4px; font-size: 14.5px; }
+.faq-item p { margin: 0; }
+
+/* ─── Footer ─────────────────────────────────────────────────────────── */
+.manual-footer {
+  padding: 28px 6vw 40px 5vw; color: var(--muted); font-size: 12.5px;
+  border-top: 1px solid #e2e6ec;
+}
+.manual-footer a { color: var(--navy2); }
+
+/* ─── Responsive ─────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .manual-body { grid-template-columns: 1fr; }
+  .manual-toc { position: static; height: auto; border-right: none; border-bottom: 1px solid #e2e6ec; padding: 20px 6vw; }
+  .manual-content { padding: 36px 6vw 80px; }
+}
+
+@media print {
+  .manual-toc { display: none; }
+  .manual-body { grid-template-columns: 1fr; }
+  figure.shot { box-shadow: none; break-inside: avoid; }
+  .step { break-inside: avoid; }
+}

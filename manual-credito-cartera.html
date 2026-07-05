@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual de Usuario — Panel de Control de Créditos | OxoHotel</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="manual-hero">
+  <div class="manual-hero-top">
+    <img src="https://lh3.googleusercontent.com/d/1zp0txIpT2kR3Z6XRUWE5-lasuRs-g9ok" alt="OxoHotel">
+    <div>
+      <div class="brand-name">OXOHOTEL</div>
+      <div class="brand-sub">Sistema de Créditos Corporativos</div>
+    </div>
+  </div>
+  <span class="manual-kicker">GUÍA PARA EQUIPO DE CRÉDITO Y CARTERA</span>
+  <h1>Manual de Usuario — Panel de Control de Créditos</h1>
+  <p class="lead">Guía completa para el equipo de Crédito y Cartera sobre el uso del Panel de Control: gestión de solicitudes, créditos, usuarios, catálogos, auditoría, backups y notificaciones.</p>
+  <div class="manual-hero-meta">
+    <div><strong>Versión 1.0</strong>Documento</div>
+    <div><strong>4 de julio de 2026</strong>Última actualización</div>
+    <div><strong>Crédito y Cartera</strong>Audiencia</div>
+    <div><strong>Rol ADMIN</strong>Acceso requerido</div>
+  </div>
+</header>
+
+<div class="manual-body">
+  <nav class="manual-toc">
+    <div class="toc-group">
+      <h4>Introducción</h4>
+      <a href="#acceso">1. Acceso al sistema</a>
+    </div>
+    <div class="toc-group">
+      <h4>Dashboard</h4>
+      <a href="#dashboard">2. Dashboard</a>
+      <a href="#dashboard-kpis" class="toc-sub">KPIs y período</a>
+      <a href="#dashboard-graficas" class="toc-sub">Gráficas y actividad</a>
+      <a href="#dashboard-exportar" class="toc-sub">Exportar reportes</a>
+    </div>
+    <div class="toc-group">
+      <h4>Operaciones</h4>
+      <a href="#solicitudes">3. Gestión de Solicitudes</a>
+      <a href="#sol-listado" class="toc-sub">Listado y filtros</a>
+      <a href="#sol-detalle" class="toc-sub">Ver expediente</a>
+      <a href="#sol-aprobar" class="toc-sub">Aprobar</a>
+      <a href="#sol-rechazar" class="toc-sub">Rechazar</a>
+      <a href="#sol-editar-eliminar" class="toc-sub">Editar / eliminar</a>
+      <a href="#sol-ia" class="toc-sub">Análisis con IA</a>
+      <a href="#sol-documentos" class="toc-sub">Documentos</a>
+      <a href="#creditos">4. Gestión de Créditos</a>
+      <a href="#cred-listado" class="toc-sub">Base de créditos</a>
+      <a href="#cred-crud" class="toc-sub">Crear / editar / eliminar</a>
+      <a href="#cred-importar" class="toc-sub">Importar plantilla</a>
+    </div>
+    <div class="toc-group">
+      <h4>Configuración</h4>
+      <a href="#usuarios">5. Gestión de Usuarios</a>
+      <a href="#catalogos">6. Catálogos</a>
+    </div>
+    <div class="toc-group">
+      <h4>Sistema</h4>
+      <a href="#auditoria-backups">7. Auditoría y Backups</a>
+      <a href="#notificaciones">8. Notificaciones</a>
+    </div>
+  </nav>
+
+  <main class="manual-content">
+
+    <section class="m-section" id="acceso">
+      <h2><span class="m-num">1</span> Acceso al sistema</h2>
+      <p>El Panel de Control se abre a través del <strong>portal Índice</strong> del Sistema de Créditos OxoHotel, la puerta de entrada común a las tres herramientas del sistema (Formulario, Panel de Control y Portal de Consulta de Reservas).</p>
+      <div class="shot-row">
+        <figure class="shot"><img src="assets/credito-cartera/indice_modo_claro.png" alt="Portal Índice, modo claro"><figcaption>Portal Índice — modo claro. Selecciona la tarjeta del Panel de Control.</figcaption></figure>
+        <figure class="shot"><img src="assets/credito-cartera/indice_modo_oscuro.png" alt="Portal Índice, modo oscuro"><figcaption>El portal también está disponible en modo oscuro.</figcaption></figure>
+      </div>
+
+      <div class="callout warning">
+        <span class="callout-ico">⚠️</span>
+        <div><strong>Acceso exclusivo para el equipo de Crédito y Cartera</strong>El Panel de Control solo permite el ingreso a usuarios con rol <strong>ADMIN</strong>. Si tu cuenta tiene el rol "Consulta de Créditos" (usado por el equipo de Reservas), el sistema mostrará el mensaje "Acceso denegado: este panel administrativo está restringido a administradores." Si necesitas acceso, solicita a otro administrador que cree o actualice tu usuario (ver sección <a href="#usuarios">Gestión de Usuarios</a>).</div>
+      </div>
+
+      <h3>Iniciar sesión</h3>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Ingresa tus credenciales</h4>
+          <p>Escribe tu correo institucional (<code>usuario@oxohotel.com</code>) y tu contraseña. Puedes mostrar/ocultar la contraseña con el ícono del ojo. Presiona <kbd>Enter</kbd> en el campo de contraseña o el botón <strong>"Iniciar sesión"</strong>.</p>
+        </div>
+      </div>
+      <figure class="shot"><img src="assets/credito-cartera/login_panel.png" alt="Pantalla de inicio de sesión del Panel de Control"><figcaption>Pantalla de inicio de sesión — "Panel de Control de Créditos".</figcaption></figure>
+      <div class="callout tip">
+        <span class="callout-ico">💡</span>
+        <div><strong>Sesión de 4 horas</strong>Una vez inicias sesión, el sistema te mantiene conectado automáticamente durante un tiempo limitado sin pedirte credenciales de nuevo, incluso si recargas la página.</div>
+      </div>
+
+      <h3>Recuperar contraseña</h3>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Solicita el código de recuperación</h4>
+          <p>Haz clic en <strong>"¿Olvidaste tu contraseña?"</strong>, escribe tu correo registrado y presiona <strong>"Enviar código de recuperación"</strong>.</p>
+        </div>
+      </div>
+      <figure class="shot"><img src="assets/credito-cartera/ventana_recuperar_contraseña.png" alt="Formulario de recuperación de contraseña"><figcaption>Paso 1 — solicitar el código de recuperación.</figcaption></figure>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Ingresa el código y tu nueva contraseña</h4>
+          <p>Revisa tu correo, escribe el código de 6 dígitos y define una nueva contraseña de al menos 6 caracteres. Presiona <strong>"Restablecer contraseña"</strong>.</p>
+        </div>
+      </div>
+      <div class="shot-row">
+        <figure class="shot"><img src="assets/credito-cartera/ventana_codigo_recuperacion.png" alt="Campo de código de recuperación y nueva contraseña"><figcaption>Paso 2 — código de 6 dígitos y nueva contraseña.</figcaption></figure>
+        <figure class="shot"><img src="assets/credito-cartera/codigo_correo_contraseña_recuperacion.png" alt="Correo con el código de recuperación"><figcaption>Correo recibido con el código de verificación.</figcaption></figure>
+      </div>
+      <div class="callout warning">
+        <span class="callout-ico">⏱️</span>
+        <div><strong>El código expira en 10 minutos.</strong>Si se vence, repite el proceso desde "¿Olvidaste tu contraseña?" para recibir uno nuevo.</div>
+      </div>
+    </section>
+
+    <section class="m-section" id="dashboard">
+      <h2><span class="m-num">2</span> Dashboard</h2>
+      <p>Es la primera pantalla que ves al iniciar sesión. Resume el estado general de las solicitudes de crédito mediante indicadores, gráficas y listados de actividad reciente.</p>
+
+      <h3>Estructura general</h3>
+      <p>A la izquierda encontrarás el <strong>menú lateral</strong> (oscuro, se expande al pasar el mouse por encima), organizado en 4 grupos: <span class="badge navy">General</span> (Dashboard, Notificaciones), <span class="badge navy">Operaciones</span> (Solicitudes, Créditos), <span class="badge navy">Configuración</span> (Catálogos, Usuarios) y <span class="badge navy">Sistema</span> (Auditoría, Backups). Al final del menú están tu usuario y el botón "Cerrar sesión".</p>
+      <figure class="shot"><img src="assets/credito-cartera/dashboard_sidebar_abierto.png" alt="Menú lateral expandido"><figcaption>Menú lateral expandido al pasar el mouse sobre él.</figcaption></figure>
+
+      <p>En la parte superior está el <strong>encabezado global</strong>, visible en todas las pantallas: título y ruta de navegación ("Panel › Dashboard"), buscador global, botón "+ Nuevo crédito", recargar, modo oscuro/claro y notificaciones.</p>
+      <figure class="shot"><img src="assets/credito-cartera/encabezado_global.png" alt="Encabezado global del panel"><figcaption>Encabezado global, presente en todas las secciones.</figcaption></figure>
+
+      <div class="callout tip">
+        <span class="callout-ico">⌨️</span>
+        <div><strong>Atajo de búsqueda rápida — <kbd>Ctrl</kbd> + <kbd>K</kbd></strong>Este atajo enfoca el buscador global desde cualquier pantalla. Escribe una empresa, código o NIT: al escribir 2 o más caracteres te lleva automáticamente a "Solicitudes" con ese texto ya filtrado.</div>
+      </div>
+      <figure class="shot"><img src="assets/credito-cartera/buscador_con_atajo.png" alt="Buscador global con atajo Ctrl K"><figcaption>Buscador global — atajo Ctrl K.</figcaption></figure>
+
+      <h3 id="dashboard-kpis">Indicadores (KPIs) y período</h3>
+      <p>Cuatro tarjetas resumen el estado de las solicitudes: <strong>Total solicitudes</strong>, <strong>Pendientes</strong>, <strong>Aprobadas</strong> y <strong>Vencidas</strong>. Puedes hacer clic sobre cualquiera de las tres últimas para ir directamente a "Solicitudes" con ese estado ya filtrado.</p>
+      <figure class="shot"><img src="assets/credito-cartera/dashboard_inicial.png" alt="Dashboard con los 4 KPIs"><figcaption>Vista inicial del Dashboard con los 4 indicadores principales.</figcaption></figure>
+      <figure class="shot"><img src="assets/credito-cartera/recuadros_interactuables.png" alt="Tarjetas KPI interactivas"><figcaption>Las tarjetas de Pendientes, Aprobadas y Vencidas son "clicables": llevan al listado filtrado.</figcaption></figure>
+
+      <div class="callout warning">
+        <span class="callout-ico">📝</span>
+        <div><strong>Detalle visual pendiente de ajuste</strong>El texto bajo cada indicador puede mostrarse duplicado (por ejemplo "27% del total del total"). Es solo un detalle de redacción en pantalla — el porcentaje y los datos numéricos son correctos. Además, la mini-gráfica de fondo de cada tarjeta es una animación decorativa, no representa una tendencia histórica real.</div>
+      </div>
+
+      <p>Usa el selector <strong>Período</strong> (arriba a la derecha) para acotar todo el Dashboard a: Todo, Hoy, Esta semana, Este mes (por defecto), Este año, o un rango Personalizado con fecha inicio y fin.</p>
+      <div class="shot-row">
+        <figure class="shot"><img src="assets/credito-cartera/tipos_periodos.png" alt="Opciones del selector de período"><figcaption>Opciones del selector de período.</figcaption></figure>
+        <figure class="shot"><img src="assets/credito-cartera/tipos_periodo_personalizado.png" alt="Rango de fechas personalizado"><figcaption>Período personalizado: rango de fecha inicio y fin.</figcaption></figure>
+      </div>
+      <figure class="shot"><img src="assets/credito-cartera/periodo_todo.png" alt="Dashboard con período Todo seleccionado"><figcaption>Dashboard con el período "Todo" seleccionado.</figcaption></figure>
+
+      <h3 id="dashboard-graficas">Gráficas y actividad reciente</h3>
+      <p>La gráfica <strong>"Evolución de las solicitudes"</strong> muestra la tendencia por tipo (Nueva, Ampliación, Renovación, Homologación); usa las flechas ‹ › para alternar entre vista de línea y de barras.</p>
+      <div class="shot-row">
+        <figure class="shot"><img src="assets/credito-cartera/grafica_evolucion_solicitudes_1.png" alt="Gráfica de evolución, tipo línea"><figcaption>Evolución de solicitudes — vista de línea.</figcaption></figure>
+        <figure class="shot"><img src="assets/credito-cartera/grafica_evolucion_solicitudes_2.png" alt="Gráfica de evolución, tipo barras"><figcaption>Evolución de solicitudes — vista de barras.</figcaption></figure>
+      </div>
+      <p>La gráfica <strong>"Distribución por estado"</strong> muestra la proporción de Aprobadas, Pendientes y Vencidas; también alterna entre gráfico circular y radial, y es clicable para filtrar el listado de Solicitudes por ese estado.</p>
+      <div class="shot-row">
+        <figure class="shot"><img src="assets/credito-cartera/graficas_distribucion_estado_1.png" alt="Gráfica de distribución, tipo circular"><figcaption>Distribución por estado — gráfico circular.</figcaption></figure>
+        <figure class="shot"><img src="assets/credito-cartera/graficas_distribucion_estado_2.png" alt="Gráfica de distribución, tipo radial"><figcaption>Distribución por estado — gráfico radial.</figcaption></figure>
+      </div>
+      <p>A la derecha, <strong>"Actividad reciente"</strong> lista las últimas solicitudes registradas; cada fila es clicable y abre su expediente.</p>
+      <figure class="shot"><img src="assets/credito-cartera/recuadro_actividad_reciente.png" alt="Widget de actividad reciente"><figcaption>Actividad reciente — últimas solicitudes registradas.</figcaption></figure>
+      <p>Debajo, la tabla <strong>"Solicitudes recientes"</strong> muestra hasta 8 registros con código, empresa, tipo, filial, monto, hotel(es), estado y fecha de envío. El botón "Ver todas" lleva al listado completo.</p>
+      <figure class="shot"><img src="assets/credito-cartera/tabla_solicitudes_recientes_dashboard.png" alt="Tabla de solicitudes recientes en el dashboard"><figcaption>Tabla "Solicitudes recientes" del Dashboard.</figcaption></figure>
+      <figure class="shot"><img src="assets/credito-cartera/dashboard_ventana_lateral.png" alt="Panel lateral de expediente abierto desde el dashboard"><figcaption>Al hacer clic en una fila se abre el expediente de la solicitud (ver sección <a href="#sol-detalle">Ver expediente</a>).</figcaption></figure>
+      <figure class="shot"><img src="assets/credito-cartera/dashboard_skeleton_loading.png" alt="Estado de carga del dashboard"><figcaption>Mientras carga la información verás una barra de progreso dorada y bloques grises animados.</figcaption></figure>
+
+      <h3 id="dashboard-exportar">Exportar el resumen del Dashboard</h3>
+      <p>El botón <strong>"Exportar"</strong> despliega 4 formatos, todos respetando el período seleccionado:</p>
+      <table class="m-table">
+        <tr><th>Formato</th><th>Qué obtienes</th></tr>
+        <tr><td>Excel (.xlsx)</td><td>Archivo generado en Google Drive con el reporte completo.</td></tr>
+        <tr><td>CSV (.csv)</td><td>Descarga directa del reporte en formato de texto separado por comas.</td></tr>
+        <tr><td>PowerPoint / Google Slides</td><td>Presentación generada automáticamente con capturas de las gráficas actuales.</td></tr>
+        <tr><td>Documento PDF</td><td>Mismo contenido de la presentación, en formato PDF descargable.</td></tr>
+      </table>
+      <figure class="shot"><img src="assets/credito-cartera/tipos_exportacion.png" alt="Menú de exportación del dashboard con 4 opciones"><figcaption>Menú de exportación del Dashboard — 4 formatos disponibles.</figcaption></figure>
+      <div class="callout tip">
+        <span class="callout-ico">💡</span>
+        <div>Si al exportar a Slides/PDF ves un error de permisos, entra al editor de Apps Script, ejecuta cualquier función y autoriza el acceso a Google Slides cuando se solicite; luego intenta de nuevo.</div>
+      </div>
+
+      <h3>Modo oscuro</h3>
+      <p>El ícono de sol/luna en el encabezado alterna entre modo claro y oscuro, disponible en todas las pantallas del panel (y en el login).</p>
+      <figure class="shot"><img src="assets/credito-cartera/dashboard_modo_oscuro.png" alt="Dashboard en modo oscuro"><figcaption>Dashboard en modo oscuro.</figcaption></figure>
+      <div class="callout warning">
+        <span class="callout-ico">ℹ️</span>
+        <div>El modo oscuro no se mantiene si cierras sesión o recargas la aplicación después de un tiempo: al volver a entrar, el panel se muestra en modo claro por defecto. Simplemente vuelve a activarlo con el mismo ícono.</div>
+      </div>
+    </section>
+
+    <section class="m-section" id="solicitudes">
+      <h2><span class="m-num">3</span> Gestión de Solicitudes</h2>
+      <p>Aquí se revisan, aprueban, rechazan y administran todas las solicitudes de crédito enviadas por los hoteles a través del Formulario público.</p>
+
+      <h3 id="sol-listado">Listado y filtros</h3>
+      <p>La tabla muestra: Código, Empresa/NIT, Tipo, Filial, Monto, Hotel(es), Estado y Fecha de envío. El botón "Ver" (o clic en la fila) abre el expediente completo.</p>
+      <figure class="shot"><img src="assets/credito-cartera/apartado_solicitudes.png" alt="Listado de solicitudes"><figcaption>Listado "Solicitudes de crédito".</figcaption></figure>
+
+      <p>Los badges de estado que verás son:</p>
+      <p>
+        <span class="badge warning">Pendiente</span>
+        <span class="badge success">Aprobada</span>
+        <span class="badge danger">Rechazada</span>
+        <span class="badge navy">En revisión</span>
+        <span class="badge danger">Vencido</span>
+      </p>
+      <figure class="shot"><img src="assets/credito-cartera/solicitudes_pendientes.png" alt="Filtro rápido de solicitudes pendientes"><figcaption>Chip rápido "Pendientes" con el contador de solicitudes en ese estado.</figcaption></figure>
+
+      <p>Puedes combinar varios filtros: búsqueda de texto libre, chips rápidos (Todas / Pendientes / Aprobadas / Vencidos), y filtros avanzados de Período, Tipo, Filial y Hotel.</p>
+      <figure class="shot"><img src="assets/credito-cartera/opciones_filtros_solicitudes.png" alt="Filtros avanzados de solicitudes"><figcaption>Filtros avanzados: período, tipo, filial y hotel.</figcaption></figure>
+      <figure class="shot"><img src="assets/credito-cartera/boton_eliminar_filtros.png" alt="Botón para limpiar filtros activos"><figcaption>Cuando hay algún filtro activo aparece el botón de "limpiar filtros" (ícono de bote de basura).</figcaption></figure>
+      <figure class="shot"><img src="assets/credito-cartera/paginacion_solicitudes.png" alt="Controles de paginación de solicitudes"><figcaption>Paginación: navega por páginas y elige cuántos registros ver (25 / 50 / 100 por página).</figcaption></figure>
+
+      <p>Para exportar el listado (respetando los filtros activos), usa el botón <strong>"Exportar"</strong>: ofrece Excel (.xlsx) y CSV.</p>
+      <figure class="shot"><img src="assets/credito-cartera/exportar_solicitudes.png" alt="Exportar listado de solicitudes"><figcaption>Exportar el listado de solicitudes a Excel o CSV.</figcaption></figure>
+      <figure class="shot"><img src="assets/credito-cartera/solicitudes_ventana_lateral.png" alt="Vista lateral desde el listado de solicitudes"><figcaption>Vista lateral abierta desde el listado.</figcaption></figure>
+
+      <h3 id="sol-detalle">Ver el expediente de una solicitud</h3>
+      <p>Al abrir una solicitud se despliega un panel lateral con 3 pestañas: <strong>Información</strong>, <strong>Documentos</strong> y <strong>Análisis IA</strong>. La pestaña Información incluye los datos de la empresa, del representante legal y de la solicitud (monto, hoteles, ejecutivo comercial, fechas), además del enlace a la carpeta de Google Drive del expediente.</p>
+      <p>Al pie del panel encontrarás los botones de acción: <strong>Editar</strong>, <strong>Eliminar</strong>, <strong>Análisis con IA</strong>, <strong>Aprobar</strong> y <strong>Rechazar</strong>.</p>
+      <div class="callout tip">
+        <span class="callout-ico">🔒</span>
+        <div><strong>El botón "Aprobar" puede aparecer bloqueado</strong>Si la empresa no es una filial de OxoHotel, debes ejecutar primero el <a href="#sol-ia">Análisis con IA</a> al menos una vez; solo entonces se habilita la aprobación. Para filiales OxoHotel, "Aprobar" está disponible de inmediato.</div>
+      </div>
+
+      <h3 id="sol-aprobar">Aprobar una solicitud</h3>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body"><h4>Confirma la aprobación</h4><p>Al presionar "Aprobar" se abre el modal "Confirmar aprobación", donde revisas/editas el correo del representante legal, el correo del ejecutivo comercial (copia) y el monto total aprobado.</p></div>
+      </div>
+      <figure class="shot"><img src="assets/credito-cartera/modal_aprobar_solicitud.png" alt="Modal de confirmación de aprobación"><figcaption>Modal "Confirmar aprobación" con la distribución de cupo por hotel.</figcaption></figure>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body"><h4>Ajusta la distribución de cupo por hotel</h4><p>Si la solicitud incluye varios hoteles, el sistema distribuye el cupo total automáticamente; puedes ajustar el monto individual de cada hotel. Una alerta te avisa en rojo si algún hotel queda por debajo de su cupo mínimo configurado (esto es solo informativo, no bloquea el envío). Puedes añadir un comentario u observación opcional.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body"><h4>Espera el procesamiento</h4><p>El sistema genera la carta de aprobación en PDF, busca los documentos del expediente y envía el correo formal con los adjuntos — no cierres la ventana durante este proceso.</p></div>
+      </div>
+      <div class="shot-row">
+        <figure class="shot"><img src="assets/credito-cartera/modal_carga_aprobar_solicitud.png" alt="Preparando aprobación"><figcaption>Preparando la aprobación (obteniendo detalles).</figcaption></figure>
+        <figure class="shot"><img src="assets/credito-cartera/modal_aprobando_solicitud.png" alt="Procesando aprobación"><figcaption>Procesando la aprobación paso a paso.</figcaption></figure>
+      </div>
+      <figure class="shot"><img src="assets/credito-cartera/solicitud_aprobada.png" alt="Solicitud aprobada en el listado"><figcaption>La solicitud aprobada cambia a estado "Aprobada" en el listado.</figcaption></figure>
+      <figure class="shot"><img src="assets/credito-cartera/correo_solicitud_aprobada.png" alt="Correo de aprobación recibido por el cliente"><figcaption>Correo de aprobación recibido por el representante legal, con el detalle de hoteles y cupos asignados.</figcaption></figure>
+      <div class="callout success">
+        <span class="callout-ico">✅</span>
+        <div>Al aprobar, el sistema notifica automáticamente por correo tanto al cliente como al equipo de reservas de cada hotel involucrado (usando los correos configurados en el catálogo <a href="#catalogos">Reservas de hoteles</a>).</div>
+      </div>
+
+      <h3 id="sol-rechazar">Rechazar una solicitud</h3>
+      <p>El rechazo desde el Panel es <strong>temporal</strong>: le indica al solicitante que puede corregir observaciones y volver a enviar la solicitud. Solo necesitas escribir un comentario/justificación opcional.</p>
+      <figure class="shot"><img src="assets/credito-cartera/modal_rechazar_solicitud.png" alt="Modal de confirmación de rechazo"><figcaption>Modal "Confirmar rechazo" — el solicitante podrá subsanar y reenviar.</figcaption></figure>
+
+      <h3 id="sol-editar-eliminar">Editar y eliminar una solicitud</h3>
+      <p>El modal "Editar solicitud" permite corregir los datos de la empresa, el representante legal, el crédito solicitado y la facturación.</p>
+      <figure class="shot"><img src="assets/credito-cartera/modal_editar_solicitud.png" alt="Modal de edición de solicitud"><figcaption>Modal "Editar solicitud".</figcaption></figure>
+      <div class="callout warning">
+        <span class="callout-ico">📝</span>
+        <div>Una de las etiquetas de este formulario ("¿Es Filial OxoHotel...") puede mostrarse con caracteres extraños por un tema de codificación pendiente de corrección visual — no afecta el guardado de la información, el campo funciona con normalidad.</div>
+      </div>
+      <p>Eliminar una solicitud es <strong>permanente e irreversible</strong>: borra el registro tanto de las hojas de cálculo como de la base de datos.</p>
+      <figure class="shot"><img src="assets/credito-cartera/modal_eliminar_solicitud.png" alt="Modal de confirmación de eliminación de solicitud"><figcaption>Modal "Eliminar solicitud" — acción irreversible.</figcaption></figure>
+
+      <h3 id="sol-ia">Análisis con Inteligencia Artificial</h3>
+      <p>El botón dorado <strong>"Análisis con IA"</strong> ejecuta una auditoría automática de los documentos del expediente (RUT, Cámara de Comercio, Estados Financieros) usando Gemini IA, verificando datos, vigencias e inconsistencias.</p>
+      <figure class="shot"><img src="assets/credito-cartera/boton_analisis_con_ia.png" alt="Botón Análisis con IA"><figcaption>Botón "Análisis con IA" en el expediente.</figcaption></figure>
+      <div class="shot-row">
+        <figure class="shot"><img src="assets/credito-cartera/ventana_analisis_ia.png" alt="Resultado del análisis IA"><figcaption>Resultado del análisis: datos verificados y alerta de vigencia.</figcaption></figure>
+        <figure class="shot"><img src="assets/credito-cartera/ventana_analisis_ia_2.png" alt="Observaciones detalladas del análisis IA"><figcaption>Observaciones detalladas de la auditoría documental.</figcaption></figure>
+      </div>
+      <p>Si aparece una alerta de vigencia (documentos vencidos o próximos a vencer), revísala antes de aprobar. Usa <strong>"Guardar en expediente"</strong> para conservar el resultado, o <strong>"Volver a analizar"</strong> si necesitas repetir el proceso.</p>
+      <div class="callout tip">
+        <span class="callout-ico">💡</span>
+        <div>Si el servicio de IA está saturado, verás un aviso para intentarlo de nuevo en unos minutos — no es un error de tu solicitud.</div>
+      </div>
+
+      <h3 id="sol-documentos">Documentos del expediente</h3>
+      <p>La pestaña "Documentos" lista cada archivo del expediente con su tipo (Formato de Solicitud, RUT, Certificado de Existencia, Cédula, Estados Financieros, Declaración de Renta, Soporte adicional), tamaño y fecha. Puedes verlo en PDF o eliminarlo. Al final, puedes subir un documento adicional arrastrándolo o seleccionándolo (solo se aceptan archivos PDF).</p>
+    </section>
+
+    <section class="m-section" id="creditos">
+      <h2><span class="m-num">4</span> Gestión de Créditos</h2>
+      <p>Esta sección administra la <strong>Base de créditos</strong> corporativos: los cupos ya asignados a cada empresa por hotel, su vigencia documental y su estado.</p>
+
+      <h3 id="cred-listado">Base de créditos</h3>
+      <figure class="shot"><img src="assets/credito-cartera/apartado_creditos.png" alt="Listado de la base de créditos"><figcaption>Listado "Base de créditos".</figcaption></figure>
+      <p>Columnas: ID Crédito, Empresa/NIT, Hotel asignado, Monto cupo, fecha de Aprobación, Estado, Vencimiento y Vigencia documental, Facturación, Novedades, y la casilla <strong>Perfil Creado</strong> (indica si ya se creó el perfil del cliente en el PMS del hotel — se puede marcar/desmarcar directamente desde la tabla).</p>
+      <div class="shot-row">
+        <figure class="shot"><img src="assets/credito-cartera/creditos_vigentes.png" alt="Créditos vigentes"><figcaption>Créditos en estado "Vigente".</figcaption></figure>
+        <figure class="shot"><img src="assets/credito-cartera/resto_de_tabla_credito.png" alt="Columnas adicionales de la tabla de créditos"><figcaption>Columnas adicionales al desplazar la tabla horizontalmente.</figcaption></figure>
+      </div>
+      <p>Filtra por Período, Hotel, Aprobación (estado del crédito), Vigencia documental o Perfil creado; puedes limpiar todos los filtros con el botón correspondiente.</p>
+      <div class="shot-row">
+        <figure class="shot"><img src="assets/credito-cartera/opciones_creditos_y_eliminar_filtros.png" alt="Filtros de la base de créditos"><figcaption>Filtros disponibles en la base de créditos.</figcaption></figure>
+        <figure class="shot"><img src="assets/credito-cartera/opciones_funciones_creditos.png" alt="Acciones disponibles sobre créditos"><figcaption>Acciones disponibles: nuevo crédito, importar plantilla, exportar.</figcaption></figure>
+      </div>
+      <figure class="shot"><img src="assets/credito-cartera/paginacion_creditos.png" alt="Paginación de la base de créditos"><figcaption>Paginación de la base de créditos (miles de registros, 100 por página por defecto).</figcaption></figure>
+
+      <p>Al abrir un crédito verás su detalle completo en un panel lateral, incluyendo la razón de bloqueo si el crédito está suspendido.</p>
+      <div class="shot-row">
+        <figure class="shot"><img src="assets/credito-cartera/ventana_lateral_credito.png" alt="Panel lateral de detalle de crédito"><figcaption>Detalle de un crédito.</figcaption></figure>
+        <figure class="shot"><img src="assets/credito-cartera/ventana_lateral_documentos.png" alt="Documentos asociados al crédito"><figcaption>Documentos asociados.</figcaption></figure>
+      </div>
+      <figure class="shot"><img src="assets/credito-cartera/boton_nuevo_credito_y_recargar_y_modooscuro_y_notificaciones.png" alt="Botones de acciones globales del panel"><figcaption>Botones globales: nuevo crédito, recargar, modo oscuro, notificaciones.</figcaption></figure>
+
+      <h3 id="cred-crud">Crear, editar y eliminar un crédito</h3>
+      <p>Para registrar un crédito manualmente, completa razón social, NIT, hotel, monto asignado, estado del crédito, fechas y vigencia de los documentos, correo de facturación y si el perfil ya fue creado en el PMS.</p>
+      <figure class="shot"><img src="assets/credito-cartera/modal_nuevo_credito.png" alt="Modal de creación de crédito"><figcaption>Modal "Nuevo Crédito".</figcaption></figure>
+      <div class="callout tip">
+        <span class="callout-ico">💡</span>
+        <div>Al editar un crédito ya existente, la Razón Social, el NIT y el Hotel quedan bloqueados (no se pueden cambiar); todo lo demás sí es editable. Si cambias el estado a "Bloqueado Corporativo" o "Bloqueado Gerencia", aparecerá un campo adicional para justificar el motivo del bloqueo.</div>
+      </div>
+      <figure class="shot"><img src="assets/credito-cartera/modal_editar_credito.png" alt="Modal de edición de crédito"><figcaption>Modal "Editar Crédito".</figcaption></figure>
+      <p>Eliminar un crédito es igualmente irreversible.</p>
+      <figure class="shot"><img src="assets/credito-cartera/modal_eliminar_credito.png" alt="Modal de eliminación de crédito"><figcaption>Modal "Eliminar crédito".</figcaption></figure>
+      <p>Exporta la base de créditos filtrada a Excel o CSV con el botón "Exportar".</p>
+      <figure class="shot"><img src="assets/credito-cartera/exportar_creditos.png" alt="Exportar base de créditos"><figcaption>Exportar la base de créditos.</figcaption></figure>
+
+      <h3 id="cred-importar">Importar créditos masivamente</h3>
+      <p>El botón <strong>"Importar plantilla"</strong> no abre un cargador de archivos: en su lugar, diligencias los créditos directamente en la hoja de cálculo interna <strong>PLANTILLA_IMPORTAR_CREDITOS</strong> y luego usas este botón para que el sistema valide, unifique los cupos por empresa (NIT) y sincronice todo con la base de datos.</p>
+      <figure class="shot"><img src="assets/credito-cartera/modal_importar_plantilla.png" alt="Modal de importación masiva de créditos"><figcaption>Modal "Importar créditos masivos".</figcaption></figure>
+    </section>
+
+    <section class="m-section" id="usuarios">
+      <h2><span class="m-num">5</span> Gestión de Usuarios</h2>
+      <p>Aquí se administran las cuentas de acceso al Panel de Control y al Portal de Consulta de Reservas.</p>
+      <figure class="shot"><img src="assets/credito-cartera/apartado_usuarios.png" alt="Listado de usuarios del sistema"><figcaption>Listado "Usuarios del sistema".</figcaption></figure>
+      <p>Cada usuario tiene: nombre, correo, un <strong>rol</strong> editable directamente desde la tabla (<span class="badge gold">ADMIN</span> o <span class="badge navy">CONSULTAS</span>), un interruptor de <strong>estado</strong> (activo/inactivo) y su último acceso.</p>
+      <div class="shot-row">
+        <figure class="shot"><img src="assets/credito-cartera/tipos_usuarios_apartado_usuarios.png" alt="Roles de usuario disponibles"><figcaption>Selector de rol: ADMIN o CONSULTAS.</figcaption></figure>
+        <figure class="shot"><img src="assets/credito-cartera/estado_usuario_desactivado.png" alt="Usuario desactivado"><figcaption>Un usuario desactivado mantiene sus datos visibles, solo cambia el interruptor de estado.</figcaption></figure>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-ico">💡</span>
+        <div><strong>¿Qué diferencia hay entre los roles?</strong><span class="badge gold">ADMIN</span> tiene acceso completo al Panel de Control (esta herramienta). <span class="badge navy">CONSULTAS</span> es el rol usado por el equipo de Reservas para el Portal de Consulta de Créditos — de solo lectura, sin acceso a este panel administrativo.</div>
+      </div>
+
+      <h3>Crear, editar, activar/desactivar y eliminar usuarios</h3>
+      <p>Para crear un usuario, define nombre completo, correo institucional, una contraseña inicial y su rol.</p>
+      <figure class="shot"><img src="assets/credito-cartera/modal_nuevo_usuario.png" alt="Modal de creación de usuario"><figcaption>Modal "Registrar nuevo usuario".</figcaption></figure>
+      <p>Al editar, puedes cambiar el nombre, el correo y el rol; la contraseña solo se actualiza si escribes una nueva (si la dejas en blanco, se conserva la actual).</p>
+      <figure class="shot"><img src="assets/credito-cartera/modal_editar_usuario.png" alt="Modal de edición de usuario"><figcaption>Modal "Editar usuario".</figcaption></figure>
+      <p>Activar o desactivar un usuario se hace directamente desde el interruptor de la tabla, sin necesidad de confirmación adicional.</p>
+      <figure class="shot"><img src="assets/credito-cartera/modal_eliminar_usuario.png" alt="Modal de eliminación de usuario"><figcaption>Modal "Eliminar usuario" — acción irreversible.</figcaption></figure>
+      <div class="callout warning">
+        <span class="callout-ico">🔒</span>
+        <div>Por seguridad, <strong>un administrador no puede eliminar su propia cuenta</strong>. Si necesitas darla de baja, pide a otro administrador que lo haga por ti.</div>
+      </div>
+    </section>
+
+    <section class="m-section" id="catalogos">
+      <h2><span class="m-num">6</span> Catálogos</h2>
+      <p>Los catálogos son las listas maestras que alimentan al Formulario público y al resto del sistema: hoteles, tipos de solicitud, tipos de documento, ejecutivos comerciales, monedas y correos de reservas por hotel.</p>
+      <figure class="shot"><img src="assets/credito-cartera/apartado_catalogos.png" alt="Sección de gestión de catálogos"><figcaption>Gestión de catálogos — 6 pestañas disponibles.</figcaption></figure>
+      <p>Todas las pestañas funcionan igual: una tabla con los registros existentes y botones de <strong>Editar</strong>/<strong>Eliminar</strong> por fila, más el botón <strong>"+ Nuevo registro"</strong>. Al crear o editar, la clave única del registro (por ejemplo el código del hotel) queda bloqueada una vez creada.</p>
+      <figure class="shot"><img src="assets/credito-cartera/modal_tabs_catalogos.png" alt="Modal genérico de creación/edición de catálogo"><figcaption>Modal de creación/edición de un registro de catálogo.</figcaption></figure>
+
+      <h3>Hoteles</h3>
+      <p>Catálogo general de hoteles OxoHotel: código, nombre, NIT, razón social y monto mínimo de cupo. Es la base de la que se alimentan los selectores de hotel en todo el sistema.</p>
+      <figure class="shot"><img src="assets/credito-cartera/tab_hoteles.png" alt="Catálogo de hoteles"><figcaption>Catálogo "Hoteles".</figcaption></figure>
+
+      <h3>Tipos de solicitud</h3>
+      <p>Define las 4 categorías de solicitud del sistema: Nueva (primera vez), Ampliación (aumento de monto), Renovación y Homologación.</p>
+      <figure class="shot"><img src="assets/credito-cartera/tab_tipos_solicitud.png" alt="Catálogo de tipos de solicitud"><figcaption>Catálogo "Tipos de Solicitud".</figcaption></figure>
+
+      <h3>Tipos de documento</h3>
+      <p>Lista maestra de los documentos que pueden adjuntarse a una solicitud (RUT, Certificado de Existencia, Cédula del representante, Estados Financieros, Declaración de Renta, Datacrédito, Extractos bancarios, entre otros).</p>
+      <figure class="shot"><img src="assets/credito-cartera/tab_tipos_documentos.png" alt="Catálogo de tipos de documento"><figcaption>Catálogo "Tipos de Documento".</figcaption></figure>
+
+      <h3>Ejecutivos comerciales</h3>
+      <p>Directorio de los ejecutivos comerciales que pueden asociarse a una solicitud, con su nombre, apellido y correo.</p>
+      <figure class="shot"><img src="assets/credito-cartera/tab_ejecutivos_comerciales.png" alt="Catálogo de ejecutivos comerciales"><figcaption>Catálogo "Ejecutivos Comerciales".</figcaption></figure>
+      <div class="callout warning">
+        <span class="callout-ico">🔍</span>
+        <div><strong>Vale la pena revisar</strong>: en los registros actuales, todos los ejecutivos muestran un mismo correo personal repetido junto a su correo institucional. Probablemente sea un dato de carga inicial/prueba — conviene validarlo con el equipo antes de depender de esa columna.</div>
+      </div>
+
+      <h3>Monedas</h3>
+      <figure class="shot"><img src="assets/credito-cartera/tab_tipo_monedas (no aplicado).png" alt="Catálogo de monedas (no aplicado al formulario)"><figcaption>Catálogo "Monedas" — COP y USD.</figcaption></figure>
+      <div class="callout warning">
+        <span class="callout-ico">⚠️</span>
+        <div><strong>Catálogo aún no conectado al flujo real</strong>Puedes crear y editar monedas aquí (por ejemplo, agregar USD), pero el Formulario público de solicitud de crédito actualmente <strong>siempre envía el monto en COP</strong> de forma fija — no existe todavía un selector de moneda para el solicitante. Agregar una moneda en este catálogo no habilita esa opción en el Formulario.</div>
+      </div>
+
+      <h3>Reservas de hoteles (correos)</h3>
+      <p>Asocia cada hotel con el correo de su equipo de reservas. Este correo es al que se envía automáticamente la carta de aprobación cuando se aprueba una solicitud para ese hotel.</p>
+      <figure class="shot"><img src="assets/credito-cartera/tab_reservas_hoteles_correos.png" alt="Catálogo de correos de reservas por hotel"><figcaption>Catálogo "Reservas de Hoteles (Correos)".</figcaption></figure>
+    </section>
+
+    <section class="m-section" id="auditoria-backups">
+      <h2><span class="m-num">7</span> Auditoría y Backups</h2>
+
+      <h3>Log de auditoría</h3>
+      <p>Registra automáticamente las acciones importantes del sistema: quién (correo del actor), cuándo, qué acción (aprobación, rechazo, edición, importación masiva, análisis IA, etc.) y sobre qué solicitud. Se muestran los últimos 100 eventos; el botón "Actualizar" refresca el listado.</p>
+      <figure class="shot"><img src="assets/credito-cartera/apartado_auditoria.png" alt="Log de auditoría"><figcaption>"Log de auditoría" — historial de acciones del sistema.</figcaption></figure>
+      <div class="callout tip">
+        <span class="callout-ico">💡</span>
+        <div>Si la columna "Detalle" se ve truncada, pasa el mouse sobre el texto para ver la información completa.</div>
+      </div>
+
+      <h3>Copias de seguridad (backups)</h3>
+      <p>Desde aquí gestionas las copias de seguridad de las Hojas de Cálculo de Google y de la base de datos MySQL. Existen backups automáticos diarios y puedes generar uno manual en cualquier momento con <strong>"Crear backup de emergencia"</strong>.</p>
+      <figure class="shot"><img src="assets/credito-cartera/apartado_backups.png" alt="Listado de copias de seguridad"><figcaption>Listado de copias de seguridad disponibles.</figcaption></figure>
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body"><h4>Lee la advertencia crítica</h4><p>Al presionar "Restaurar" sobre una copia, el sistema te advierte que esta acción reemplazará <strong>toda</strong> la información actual (Solicitudes, Auditoría, Documentos, base de datos) con los datos de ese respaldo. Antes de continuar, el sistema genera automáticamente una copia preventiva del estado actual, por si necesitas revertir.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body"><h4>Confirma con el código enviado a tu correo</h4><p>Recibirás un código de 6 dígitos válido por 5 minutos. Ingrésalo en el modal de confirmación para completar la restauración.</p></div>
+      </div>
+      <figure class="shot"><img src="assets/credito-cartera/modal_restaurar_backup.png" alt="Modal de advertencia de restauración de backup"><figcaption>Advertencia antes de restaurar un backup.</figcaption></figure>
+      <div class="shot-row">
+        <figure class="shot"><img src="assets/credito-cartera/modal_codigo_enviado_restaurar_backup.png" alt="Modal de confirmación con código de restauración"><figcaption>Confirmación con el código de seguridad.</figcaption></figure>
+        <figure class="shot"><img src="assets/credito-cartera/correo_restaurar_backup_codigo.png" alt="Correo con el código de restauración de backup"><figcaption>Correo con el código de verificación.</figcaption></figure>
+      </div>
+      <div class="callout danger">
+        <span class="callout-ico">🛑</span>
+        <div><strong>Restaurar un backup es una acción crítica e irreversible</strong> sobre la información viva del sistema. Úsala solo cuando estés seguro y, de ser posible, coordínala con el equipo técnico.</div>
+      </div>
+    </section>
+
+    <section class="m-section" id="notificaciones">
+      <h2><span class="m-num">8</span> Notificaciones</h2>
+      <p>Las notificaciones son las solicitudes de crédito más recientes, para que el equipo no pierda de vista las que aún no ha revisado. Aparecen en dos lugares: la campana del encabezado global y el ítem "Notificaciones" del menú lateral, ambos con un contador de pendientes.</p>
+      <figure class="shot"><img src="assets/credito-cartera/ventana_notificaciones.png" alt="Panel desplegable de notificaciones"><figcaption>Panel rápido de notificaciones (campana del encabezado).</figcaption></figure>
+      <p>La vista completa "Todas las notificaciones" permite marcar una por una o todas a la vez como leídas.</p>
+      <figure class="shot"><img src="assets/credito-cartera/apartado_notificaciones.png" alt="Vista completa de notificaciones"><figcaption>Vista completa de notificaciones.</figcaption></figure>
+      <div class="shot-row">
+        <figure class="shot"><img src="assets/credito-cartera/notificaciones_no_leidas.png" alt="Notificaciones no leídas"><figcaption>Notificación no leída: fondo dorado claro y chip "● Nueva".</figcaption></figure>
+        <figure class="shot"><img src="assets/credito-cartera/notificaciones_leidas.png" alt="Notificaciones leídas"><figcaption>Notificación leída: fondo neutro y chip "✓ Leída".</figcaption></figure>
+      </div>
+      <p>Al hacer clic sobre una notificación (no sobre el chip de estado) se abre directamente el expediente de esa solicitud, y queda marcada como leída automáticamente.</p>
+      <figure class="shot"><img src="assets/credito-cartera/notificaciones_ventana_lateral.png" alt="Expediente abierto desde una notificación"><figcaption>Expediente abierto desde una notificación.</figcaption></figure>
+    </section>
+
+    <section class="m-section" id="cerrar-sesion">
+      <h3>Cerrar sesión</h3>
+      <p>Usa el botón "Cerrar sesión" al final del menú lateral. El sistema te pedirá confirmación antes de salir.</p>
+      <figure class="shot"><img src="assets/credito-cartera/modal_cerrar_sesion.png" alt="Modal de confirmación de cierre de sesión"><figcaption>Confirmación para cerrar sesión.</figcaption></figure>
+    </section>
+
+  </main>
+</div>
+
+<footer class="manual-footer">
+  <p>¿Dudas o problemas con el Panel de Control? Escribe a <a href="mailto:creditos@oxohotel.com">creditos@oxohotel.com</a>.</p>
+  <p>OxoHotel · Sistema de Créditos Corporativos · Manual de Usuario v1.0</p>
+</footer>
+
+</body>
+</html>

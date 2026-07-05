@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual de Usuario — Portal de Consulta de Créditos | OxoHotel</title>
+<meta name="description" content="Manual de usuario del Portal de Consulta de Créditos de OxoHotel, dirigido al equipo de Reservas.">
+<link rel="icon" type="image/x-icon" href="https://www.oxohotel.com/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<!-- ═══════════════════════ PORTADA ═══════════════════════ -->
+<header class="manual-hero">
+  <div class="manual-hero-top">
+    <img src="https://lh3.googleusercontent.com/d/1zp0txIpT2kR3Z6XRUWE5-lasuRs-g9ok" alt="OxoHotel">
+    <div>
+      <div class="brand-name">OXOHOTEL</div>
+      <div class="brand-sub">Sistema de Créditos Corporativos</div>
+    </div>
+  </div>
+  <span class="manual-kicker">GUÍA PARA EQUIPO DE RESERVAS</span>
+  <h1>Manual de Usuario — Portal de Consulta de Créditos</h1>
+  <p class="lead">
+    Guía paso a paso para que el equipo de Reservas consulte el estado de los créditos corporativos
+    aprobados y activos de los hoteles OxoHotel: cupos, vigencia de documentos, hotel asignado y
+    novedades, todo en un solo lugar.
+  </p>
+  <div class="manual-hero-meta">
+    <div><strong>1.0</strong>Versión del manual</div>
+    <div><strong>4 de julio de 2026</strong>Fecha de publicación</div>
+    <div><strong>Equipo de Reservas</strong>Audiencia</div>
+    <div><strong>Portal de Consulta</strong>Módulo documentado</div>
+  </div>
+</header>
+
+<!-- ═══════════════════════ LAYOUT ═══════════════════════ -->
+<div class="manual-body">
+
+  <!-- ─── TOC lateral ─── -->
+  <nav class="manual-toc" aria-label="Tabla de contenido">
+    <div class="toc-group">
+      <h4>Contenido</h4>
+      <a href="#acceso">1. Acceso al sistema</a>
+      <a href="#acceso" class="toc-sub">Portal Índice</a>
+      <a href="#acceso" class="toc-sub">Inicio de sesión</a>
+      <a href="#acceso" class="toc-sub">Recuperar contraseña</a>
+      <a href="#dashboard">2. Dashboard</a>
+      <a href="#dashboard" class="toc-sub">Indicadores (KPIs)</a>
+      <a href="#dashboard" class="toc-sub">Gráficas</a>
+      <a href="#dashboard" class="toc-sub">Detalle de un crédito</a>
+      <a href="#creditos">3. Consultar créditos</a>
+      <a href="#creditos" class="toc-sub">Filtros de búsqueda</a>
+      <a href="#creditos" class="toc-sub">Exportar</a>
+      <a href="#notificaciones">4. Notificaciones</a>
+      <a href="#perfil">5. Perfil PMS y cerrar sesión</a>
+    </div>
+  </nav>
+
+  <!-- ─── Contenido ─── -->
+  <main class="manual-content">
+
+    <div class="callout tip">
+      <span class="callout-ico">💡</span>
+      <div>
+        <strong>Este portal es de solo consulta</strong>
+        El equipo de Reservas puede ver el estado de los créditos corporativos aprobados y activos
+        (cupo, vigencia de documentos, hotel asignado, novedades), pero <strong>no puede aprobar,
+        rechazar, editar montos ni eliminar créditos</strong>. Esas acciones son exclusivas del
+        equipo de Crédito y Cartera desde el Panel de Administración. La única excepción es la
+        casilla "Perfil creado (PMS/Hotel)", explicada en la sección 5, que no afecta la aprobación
+        del crédito.
+      </div>
+    </div>
+
+    <!-- ═══════════════ 1. ACCESO ═══════════════ -->
+    <section class="m-section" id="acceso">
+      <h2><span class="m-num">1</span>Acceso al sistema</h2>
+
+      <h3>1.1 Desde el portal Índice</h3>
+      <p>
+        Todas las herramientas del sistema de créditos de OxoHotel se abren desde un portal de acceso
+        único ("Índice"). Allí encontrarás tres tarjetas: <em>Formulario de Solicitud</em> (para
+        hoteles y ejecutivos), <em>Panel de Administración</em> (para el equipo de Crédito y Cartera)
+        y <strong>Consulta de Cupos de Crédito</strong>, que es la que te corresponde como parte del
+        equipo de Reservas.
+      </p>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Ubica la tarjeta "Consulta de Cupos de Crédito"</h4>
+          <p>
+            Tiene la etiqueta <strong>Consulta de créditos</strong> y describe sus funciones:
+            directorio completo de créditos activos, filtros por hotel/estado/vigencia, vista de
+            vigencia documental y exportación de datos.
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Haz clic en "Consultar créditos"</h4>
+          <p>El botón abre el Portal de Consulta de Créditos en una pestaña nueva del navegador.</p>
+        </div>
+      </div>
+      <p>
+        El botón de luna/sol en la esquina superior derecha alterna el portal Índice entre modo claro
+        y modo oscuro; es solo una preferencia visual y no afecta la información mostrada.
+      </p>
+      <div class="shot-row">
+        <figure class="shot">
+          <img src="assets/reservas/indice_modo_claro.png" alt="Portal Índice del sistema de créditos OxoHotel en modo claro, con las tres tarjetas de acceso">
+          <figcaption>Portal Índice — modo claro. La tarjeta de la derecha, "Consulta de Cupos de Crédito", es la puerta de entrada al portal de Reservas.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/reservas/indice_modo_oscuro.png" alt="Portal Índice del sistema de créditos OxoHotel en modo oscuro">
+          <figcaption>El mismo portal Índice en modo oscuro.</figcaption>
+        </figure>
+      </div>
+
+      <h3>1.2 Inicio de sesión</h3>
+      <p>
+        Al abrir el portal verás la pantalla de inicio de sesión, con el logotipo de OxoHotel y el
+        rótulo "Portal de Créditos Corporativos".
+      </p>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Ingresa tu correo electrónico y contraseña</h4>
+          <p>
+            Usa las credenciales que te fueron asignadas por el administrador del sistema. El ícono
+            del ojo, dentro del campo de contraseña, permite mostrar u ocultar lo digitado para
+            verificar que esté correcto.
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Presiona "Iniciar sesión"</h4>
+          <p>
+            Si los datos son correctos, entrarás directamente al Dashboard. Tu sesión permanece
+            activa mientras uses el portal; si pasas varias horas sin actividad, deberás iniciar
+            sesión nuevamente.
+          </p>
+        </div>
+      </div>
+      <div class="callout warning">
+        <span class="callout-ico">⚠️</span>
+        <div>
+          <strong>El registro de usuarios no es público</strong>
+          Este portal solo admite el ingreso de cuentas con rol <span class="badge navy">ADMIN</span>
+          o <span class="badge gold">CONSULTAS</span> (equipo de Reservas), previamente creadas por
+          el administrador del sistema. Si no tienes credenciales, tu cuenta aparece inactiva o el
+          portal indica "No tienes acceso a este portal", comunícate con el equipo de Crédito y
+          Cartera o soporte técnico para que gestionen tu usuario.
+        </div>
+      </div>
+      <figure class="shot">
+        <img src="assets/reservas/login.png" alt="Pantalla de inicio de sesión del Portal de Créditos OxoHotel, con campos de correo y contraseña">
+        <figcaption>Pantalla de inicio de sesión. El enlace "¿Olvidaste tu contraseña?" lleva al formulario de recuperación.</figcaption>
+      </figure>
+
+      <h3>1.3 Recuperar contraseña</h3>
+      <p>Si olvidaste tu contraseña, puedes restablecerla tú mismo en dos pasos:</p>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Solicita el código de recuperación</h4>
+          <p>
+            En la pantalla de inicio de sesión, haz clic en <strong>"¿Olvidaste tu contraseña?"</strong>,
+            escribe el correo electrónico registrado y presiona <strong>"Enviar código de
+            recuperación"</strong>. Llegará un correo con un código de 6 dígitos, válido durante
+            10 minutos.
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Ingresa el código y define una nueva contraseña</h4>
+          <p>
+            Escribe el código recibido y una nueva contraseña de al menos 6 caracteres, luego
+            confirma con <strong>"Restablecer contraseña"</strong>. Al finalizar, vuelve a la
+            pantalla de inicio de sesión con tu nueva contraseña.
+          </p>
+        </div>
+      </div>
+      <figure class="shot">
+        <img src="assets/reservas/ventana_recuperar_contraseña.png" alt="Formulario de recuperación de contraseña, con el campo de correo electrónico registrado">
+        <figcaption>Formulario de recuperación de contraseña — primer paso, antes de ingresar el código de 6 dígitos.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ═══════════════ 2. DASHBOARD ═══════════════ -->
+    <section class="m-section" id="dashboard">
+      <h2><span class="m-num">2</span>Dashboard</h2>
+      <p>
+        Al iniciar sesión llegas directamente al <strong>Dashboard</strong>, un resumen visual del
+        estado general de los créditos corporativos. En la parte superior siempre encontrarás el
+        encabezado global: el título de la vista, el buscador rápido (empresa, NIT u hotel — también
+        se activa con <kbd>Ctrl</kbd>+<kbd>K</kbd>), el botón de actualizar datos, el interruptor de
+        modo claro/oscuro y la campana de notificaciones.
+      </p>
+      <figure class="shot">
+        <img src="assets/reservas/encabezado_global.png" alt="Encabezado global del portal, con título de la vista, buscador y accesos rápidos">
+        <figcaption>Encabezado presente en todas las vistas del portal.</figcaption>
+      </figure>
+
+      <h3>2.1 Indicadores (KPIs)</h3>
+      <p>
+        Justo debajo del selector de período ("Todo", "Hoy", "Esta semana", "Este mes" o "Este año")
+        se muestran cuatro tarjetas con los indicadores clave:
+      </p>
+      <table class="m-table">
+        <thead><tr><th>Indicador</th><th>Qué muestra</th></tr></thead>
+        <tbody>
+          <tr><td>Créditos activos</td><td>Cantidad de créditos aprobados que están vigentes en este momento.</td></tr>
+          <tr><td>Doc. vigentes</td><td>Créditos cuya documentación de soporte está al día.</td></tr>
+          <tr><td>Doc. no vigentes</td><td>Créditos con documentación vencida.</td></tr>
+          <tr><td>Por vencer (15D)</td><td>Créditos cuya documentación vence dentro de los próximos 15 días.</td></tr>
+        </tbody>
+      </table>
+      <p>
+        Cada tarjeta es interactiva: al hacer clic sobre ella, el portal te lleva a la vista
+        <strong>Créditos</strong> con el filtro correspondiente ya aplicado (por ejemplo, "Créditos
+        activos" filtra automáticamente por estado "Activo").
+      </p>
+      <figure class="shot">
+        <img src="assets/reservas/recuadros_interactuables.png" alt="Fila de cuatro tarjetas KPI: créditos activos, documentos vigentes, documentos no vigentes y por vencer">
+        <figcaption>Tarjetas de indicadores del Dashboard. Cada una es un acceso directo a la vista de créditos filtrada.</figcaption>
+      </figure>
+
+      <h3>2.2 Gráficas</h3>
+      <p>El Dashboard incluye dos gráficas, ambas con flechas para alternar entre dos tipos de visualización:</p>
+      <ul>
+        <li>
+          <strong>Evolución de créditos</strong>: muestra la cantidad total de créditos mes a mes.
+          Puede verse como línea de área o como barras, usando las flechas ‹ › del encabezado de la
+          tarjeta.
+        </li>
+        <li>
+          <strong>Distribución por estado</strong>: muestra la proporción de créditos según su
+          estado (Activo, Por Vencer, Vencido, Bloqueado Corporativo, Bloqueado Gerencia). Puede
+          verse como anillo o como torta (pie), también con las flechas ‹ ›.
+        </li>
+      </ul>
+      <div class="shot-row">
+        <figure class="shot">
+          <img src="assets/reservas/grafica_evolucion_creditos_1.png" alt="Gráfica de evolución de créditos en formato de línea de área, por mes">
+          <figcaption>Evolución de créditos — vista de línea de área.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/reservas/grafica_evolucion_creditos_2.png" alt="Gráfica de evolución de créditos en formato de barras, por mes">
+          <figcaption>Evolución de créditos — vista de barras.</figcaption>
+        </figure>
+      </div>
+      <div class="shot-row">
+        <figure class="shot">
+          <img src="assets/reservas/grafica_distribucion_estado_1.png" alt="Gráfica de distribución de créditos por estado, en formato de anillo (polar)">
+          <figcaption>Distribución por estado — vista de anillo.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/reservas/grafica_distribucion_estado_2.png" alt="Gráfica de distribución de créditos por estado, en formato de torta">
+          <figcaption>Distribución por estado — vista de torta (pie).</figcaption>
+        </figure>
+      </div>
+
+      <h3>2.3 Créditos recientes y detalle de un crédito</h3>
+      <p>
+        Debajo de las gráficas encontrarás la tabla <strong>Créditos recientes</strong>, con las
+        últimas empresas aprobadas: empresa, hotel, monto del cupo, fecha de aprobación, estado,
+        vigencia del documento y la casilla de perfil. El botón <strong>"Ver todos"</strong> te lleva
+        a la vista completa de <a href="#creditos">Créditos</a>.
+      </p>
+      <figure class="shot">
+        <img src="assets/reservas/tabla_creditos_recientesd.png" alt="Tabla de créditos recientes en el Dashboard, con columnas de empresa, hotel, monto, fecha, estado, vigencia y perfil">
+        <figcaption>Tabla "Créditos recientes" del Dashboard.</figcaption>
+      </figure>
+      <p>
+        Al hacer clic sobre cualquier fila (o sobre una tarjeta KPI ya filtrada) se abre un panel
+        lateral deslizante con el detalle completo del crédito: razón social, NIT, hotel, monto,
+        fecha y responsable de la aprobación, estado, quién lo solicitó, vigencia de documentos,
+        fechas de recepción y vencimiento de documentos, y correo de facturación electrónica.
+      </p>
+      <figure class="shot">
+        <img src="assets/reservas/ventana_lateral_dashboard.png" alt="Panel lateral con el detalle completo de un crédito, incluyendo información del crédito y documentación">
+        <figcaption>Panel lateral de detalle de crédito, abierto desde el Dashboard.</figcaption>
+      </figure>
+      <p>
+        Para cerrar el panel, presiona la "X", el botón <strong>"Cerrar"</strong> al pie, la tecla
+        <kbd>Esc</kbd>, o haz clic fuera del panel.
+      </p>
+      <p>
+        El interruptor de modo claro/oscuro del encabezado global aplica a todo el portal, incluidas
+        las gráficas, que ajustan automáticamente sus colores.
+      </p>
+      <figure class="shot">
+        <img src="assets/reservas/dashboard_modo_oscuro.png" alt="Vista completa del Dashboard en modo oscuro">
+        <figcaption>Dashboard en modo oscuro.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ═══════════════ 3. CONSULTAR CRÉDITOS ═══════════════ -->
+    <section class="m-section" id="creditos">
+      <h2><span class="m-num">3</span>Consultar créditos</h2>
+      <p>
+        Desde el ícono <strong>Créditos</strong> del menú lateral accedes al listado completo de
+        créditos corporativos aprobados y activos, con todos los datos operativos que necesita el
+        equipo de Reservas para atender a un huésped corporativo.
+      </p>
+      <figure class="shot">
+        <img src="assets/reservas/apartado_creditos.png" alt="Vista de la sección Créditos, con buscador, filtros y tabla de resultados">
+        <figcaption>Vista "Créditos": buscador, filtros, contador de registros y tabla de resultados.</figcaption>
+      </figure>
+
+      <h3>3.1 Buscar y filtrar</h3>
+      <p>Puedes acotar el listado combinando cualquiera de estos filtros:</p>
+      <table class="m-table">
+        <thead><tr><th>Filtro</th><th>Uso</th></tr></thead>
+        <tbody>
+          <tr><td>Buscador</td><td>Escribe razón social, NIT o nombre del hotel para encontrar coincidencias al instante.</td></tr>
+          <tr><td>Período</td><td>Filtra por fecha de aprobación: hoy, esta semana, este mes, este año o un rango de fechas personalizado.</td></tr>
+          <tr><td>Hotel</td><td>Muestra únicamente los créditos asociados a un hotel específico.</td></tr>
+          <tr><td>Aprobación</td><td>Filtra por estado del crédito: Activo, Por Vencer, Vencido, Bloqueado Corporativo o Bloqueado Gerencia.</td></tr>
+          <tr><td>Vigencia</td><td>Filtra por vigencia documental: Vigente, No Vigente o Por Vencer.</td></tr>
+          <tr><td>Perfil creado</td><td>Filtra según si ya se marcó o no el perfil del cliente como creado en el PMS del hotel.</td></tr>
+        </tbody>
+      </table>
+      <p>
+        El contador "Total: N registros" se actualiza según los filtros activos. Cuando hay al menos
+        un filtro aplicado, aparece el botón con ícono de bote de basura para <strong>limpiar todos
+        los filtros</strong> de un solo clic.
+      </p>
+      <div class="shot-row">
+        <figure class="shot">
+          <img src="assets/reservas/credito_filtro_aplicado.png" alt="Tabla de créditos filtrada por el texto 'varichem' en el buscador">
+          <figcaption>Ejemplo de búsqueda por texto ("varichem") con resultados filtrados.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/reservas/boton_eliminar_filtros.png" alt="Botón de bote de basura para limpiar filtros, junto al botón Exportar">
+          <figcaption>Botón para limpiar todos los filtros aplicados (visible solo cuando hay filtros activos).</figcaption>
+        </figure>
+      </div>
+
+      <h3>3.2 Leer la tabla de resultados</h3>
+      <p>Cada fila corresponde a un crédito asignado a un hotel específico, con estas columnas:</p>
+      <ul>
+        <li><strong>Empresa</strong>: razón social y NIT del cliente corporativo.</li>
+        <li><strong>Hotel</strong>: código y nombre del hotel al que aplica ese cupo.</li>
+        <li><strong>Monto crédito</strong>: cupo aprobado para ese hotel.</li>
+        <li><strong>Fecha aprobación</strong> y <strong>Venc. doc.</strong>: fechas clave del crédito y su documentación.</li>
+        <li><strong>Vigencia doc.</strong> y <strong>Estado</strong>: insignias de color (verde, ámbar o rojo) que indican rápidamente la situación.</li>
+        <li><strong>Perfil</strong>: casilla que indica si el perfil del cliente ya fue creado en el sistema del hotel (ver sección 5).</li>
+        <li><strong>Facturación electrónica</strong>, <strong>Aprobado por</strong> y <strong>Novedades</strong>: datos de apoyo para la gestión de la reserva.</li>
+      </ul>
+      <p>
+        Haz clic en cualquier parte de la fila (fuera de la casilla de Perfil) para abrir el panel
+        lateral con el detalle completo de ese crédito, igual que en el Dashboard.
+      </p>
+      <figure class="shot">
+        <img src="assets/reservas/ventana_lateral_creditos.png" alt="Panel lateral de detalle de un crédito abierto desde la vista Créditos">
+        <figcaption>Detalle de crédito abierto desde la vista Créditos.</figcaption>
+      </figure>
+      <p>
+        Al final de la tabla encontrarás la barra de paginación, donde puedes moverte entre páginas
+        y elegir cuántos registros ver por página (25, 50 o 100).
+      </p>
+
+      <h3>3.3 Exportar resultados</h3>
+      <p>
+        El botón <strong>"Exportar"</strong>, junto al contador de registros, ofrece dos formatos:
+      </p>
+      <ul>
+        <li>
+          <strong>Excel (.xlsx)</strong>: genera un archivo con <em>todos</em> los créditos que
+          cumplen los filtros aplicados (sin importar cuántas páginas tengan) y lo abre listo para
+          descargar en una pestaña nueva.
+        </li>
+        <li>
+          <strong>CSV (.csv)</strong>: descarga directamente en tu navegador los registros que están
+          <em>cargados en la página actual</em> de la tabla. Si quieres que el CSV incluya el listado
+          filtrado completo, primero aumenta el tamaño de página (50 o 100) o revisa que no queden
+          resultados en otras páginas.
+        </li>
+      </ul>
+      <figure class="shot">
+        <img src="assets/reservas/exportar_creditos.png" alt="Menú desplegable del botón Exportar, con las opciones Exportar a Excel y Exportar a CSV">
+        <figcaption>Menú de exportación con las opciones Excel y CSV.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ═══════════════ 4. NOTIFICACIONES ═══════════════ -->
+    <section class="m-section" id="notificaciones">
+      <h2><span class="m-num">4</span>Notificaciones</h2>
+      <p>
+        La campana del encabezado global avisa sobre documentos de crédito <strong>vencidos</strong>
+        o <strong>próximos a vencer</strong> (dentro de los siguientes 15 días). El número en rojo
+        indica cuántas notificaciones no has leído todavía.
+      </p>
+      <p>
+        Al hacer clic en la campana se abre un menú desplegable con las notificaciones más recientes
+        y un botón para <strong>"Marcar todas leídas"</strong>. Desde ahí también puedes ir a
+        <strong>"Ver todas las notificaciones"</strong> para la vista completa.
+      </p>
+      <figure class="shot">
+        <img src="assets/reservas/ventana_notificaciones.png" alt="Menú desplegable de notificaciones con alertas de documentos vencidos">
+        <figcaption>Menú rápido de notificaciones, accesible desde el ícono de campana.</figcaption>
+      </figure>
+      <p>
+        En la vista completa, cada notificación se muestra como una tarjeta con la empresa, el NIT,
+        el hotel, una insignia de <strong>VENCIDO</strong> o <strong>POR VENCER</strong> y cuántos
+        días han pasado o faltan. El chip "Nueva"/"Leída" a la derecha se puede pulsar para marcar
+        esa notificación puntual como leída o no leída; el botón "Marcar todas como leídas" lo hace
+        para todas a la vez, y "Actualizar" refresca el listado. Al hacer clic sobre una tarjeta se
+        abre el panel de detalle del crédito correspondiente.
+      </p>
+      <figure class="shot">
+        <img src="assets/reservas/apartado_notificaciones.png" alt="Vista completa de notificaciones, con lista de créditos con documentos vencidos">
+        <figcaption>Vista completa "Notificaciones", con el listado de alertas de vencimiento documental.</figcaption>
+      </figure>
+      <div class="callout tip">
+        <span class="callout-ico">💡</span>
+        <div>
+          <strong>Solo informan, no requieren acción de aprobación</strong>
+          Las notificaciones son un recordatorio de vencimiento documental para que puedas anticipar
+          si un cliente necesita renovar soporte; no implican ninguna gestión de aprobación ni bloqueo
+          de crédito de tu parte.
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 5. PERFIL PMS Y CERRAR SESIÓN ═══════════════ -->
+    <section class="m-section" id="perfil">
+      <h2><span class="m-num">5</span>Perfil PMS y cerrar sesión</h2>
+
+      <h3>5.1 Casilla "Perfil creado (PMS/Hotel)"</h3>
+      <p>
+        En la tabla de créditos y en el panel de detalle existe un campo llamado
+        <strong>"Perfil creado (PMS/Hotel)"</strong>. Este campo no tiene relación con el usuario
+        con el que inicias sesión en el portal: indica si el hotel ya creó el perfil del cliente
+        corporativo en su propio sistema de gestión hotelera (PMS), para poder facturarle con el
+        crédito aprobado.
+      </p>
+      <p>
+        Es el <strong>único dato que el equipo de Reservas puede modificar</strong> en este portal.
+        Marcarlo o desmarcarlo no aprueba, rechaza ni cambia el estado del crédito: solo deja
+        constancia operativa de si el perfil ya existe en el PMS del hotel.
+      </p>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Haz clic en la casilla "Perfil" de la fila correspondiente</h4>
+          <p>Disponible únicamente en la tabla de la vista Créditos (en el panel de detalle se muestra solo como información, sin poder editarse allí).</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Confirma el cambio</h4>
+          <p>
+            Aparece la ventana <strong>"Confirmar cambio de perfil"</strong>, preguntando si deseas
+            marcar el perfil como Creado o No Creado. Presiona <strong>"Confirmar"</strong> para
+            aplicar el cambio o <strong>"Cancelar"</strong> para descartarlo.
+          </p>
+        </div>
+      </div>
+      <figure class="shot">
+        <img src="assets/reservas/modal_crear_perfil.png" alt="Ventana de confirmación 'Confirmar cambio de perfil', preguntando si se desea marcar el perfil como creado">
+        <figcaption>Ventana de confirmación al marcar o desmarcar la casilla "Perfil creado".</figcaption>
+      </figure>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Revisa la confirmación</h4>
+          <p>Al confirmar, un mensaje breve en la esquina de la pantalla indica que el cambio se guardó correctamente.</p>
+        </div>
+      </div>
+      <figure class="shot">
+        <img src="assets/reservas/pop_up_confirmacion_perfil_actualizado.png" alt="Aviso emergente de confirmación: Estado de perfil creado actualizado">
+        <figcaption>Aviso de confirmación tras actualizar el estado del perfil.</figcaption>
+      </figure>
+
+      <h3>5.2 Cerrar sesión</h3>
+      <p>
+        Tu nombre y correo aparecen en la parte inferior del menú lateral. Debajo se encuentra el
+        botón <strong>"Cerrar sesión"</strong>.
+      </p>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Presiona "Cerrar sesión" en el menú lateral</h4>
+          <p>Se abrirá la ventana de confirmación <strong>"Cerrar Sesión"</strong>.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Confirma para salir del portal</h4>
+          <p>
+            Al presionar <strong>"Confirmar"</strong> se cierra tu sesión y vuelves a la pantalla de
+            inicio de sesión. Si presionas "Cancelar", permaneces en el portal sin cambios.
+          </p>
+        </div>
+      </div>
+      <figure class="shot">
+        <img src="assets/reservas/modal_cerrar_sesion.png" alt="Ventana de confirmación para cerrar sesión, con botones Cancelar y Confirmar">
+        <figcaption>Ventana de confirmación al cerrar sesión.</figcaption>
+      </figure>
+      <div class="callout success">
+        <span class="callout-ico">✅</span>
+        <div>
+          <strong>Recomendación</strong>
+          Cierra siempre tu sesión al terminar de usar el portal, especialmente si trabajas en un
+          computador compartido de recepción.
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer class="manual-footer">
+  <p>
+    <strong>OxoHotel</strong> · Sistema de Créditos Corporativos · Portal de Consulta de Créditos (equipo de Reservas)
+  </p>
+  <p>
+    ¿Dudas sobre el uso del portal o problemas de acceso? Escribe a
+    <a href="mailto:creditos@oxohotel.com">creditos@oxohotel.com</a> (contacto de referencia del área de
+    Crédito y Cartera).
+  </p>
+</footer>
+
+</body>
+</html>
