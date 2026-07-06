@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagrama de Flujo General — Sistema de Créditos | OxoHotel</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .diagram-page { max-width: 1400px; margin: 0 auto; padding: 40px 5vw 80px; }
+  .diagram-toolbar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 24px; gap: 16px; flex-wrap: wrap;
+  }
+  .diagram-toolbar p { margin: 0; color: var(--text2); font-size: 14px; max-width: 640px; }
+  .btn-print {
+    background: var(--navy2); color: #fff; border: none; padding: 10px 20px;
+    border-radius: var(--radius-sm); font-family: var(--font); font-weight: 600;
+    font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+    flex-shrink: 0;
+  }
+  .btn-print:hover { background: var(--navy-dark); }
+  .diagram-frame {
+    background: #fff; border: 1px solid #e2e6ec; border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 32px; overflow-x: auto;
+  }
+  .diagram-frame .mermaid { display: flex; justify-content: center; min-width: 1100px; }
+  .legend {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px; margin-top: 28px;
+  }
+  .legend .swatch {
+    display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--text2);
+  }
+  .legend .dot { width: 14px; height: 14px; border-radius: 4px; flex-shrink: 0; }
+  .notes-block { margin-top: 32px; }
+  .notes-block h3 { font-size: 16px; color: var(--navy2); margin-bottom: 10px; }
+  .notes-block ul { color: var(--text2); font-size: 14.5px; line-height: 1.7; padding-left: 20px; }
+  .notes-block li { margin-bottom: 6px; }
+
+  @media print {
+    @page { size: A3 landscape; margin: 10mm; }
+    .manual-hero { padding: 24px 5vw; }
+    .diagram-toolbar, .btn-print { display: none !important; }
+    .diagram-frame { box-shadow: none; border: none; padding: 0; overflow: visible; }
+    .diagram-frame .mermaid { min-width: 0; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<header class="manual-hero">
+  <div class="manual-hero-top">
+    <img src="https://lh3.googleusercontent.com/d/1zp0txIpT2kR3Z6XRUWE5-lasuRs-g9ok" alt="OxoHotel">
+    <div>
+      <div class="brand-name">OXOHOTEL</div>
+      <div class="brand-sub">Sistema de Créditos Corporativos</div>
+    </div>
+  </div>
+  <span class="manual-kicker">DIAGRAMA DE FLUJO</span>
+  <h1>Flujo General del Proceso de Crédito</h1>
+  <p class="lead">Recorrido completo end-to-end: desde que un hotel diligencia su solicitud en el Formulario, pasando por la revisión y aprobación del equipo de Crédito y Cartera, hasta la consulta del cupo vigente por parte del equipo de Reservas.</p>
+  <div class="manual-hero-meta">
+    <div><strong>Versión 1.0</strong>Documento</div>
+    <div><strong>5 de julio de 2026</strong>Última actualización</div>
+    <div><strong>4 actores</strong>Solicitante · Formulario · Crédito y Cartera · Reservas</div>
+  </div>
+</header>
+
+<div class="diagram-page">
+
+  <div class="diagram-toolbar">
+    <p>Este diagrama se renderiza en el navegador. Para guardarlo como <strong>PDF</strong>, usa <kbd>Ctrl</kbd>+<kbd>P</kbd> (o el botón de abajo) y elige "Guardar como PDF", orientación horizontal. Para una <strong>imagen</strong>, haz clic derecho sobre el diagrama una vez cargado y selecciona "Guardar imagen como".</p>
+    <button class="btn-print" onclick="window.print()">🖨️ Imprimir / Guardar como PDF</button>
+  </div>
+
+  <div class="diagram-frame">
+    <div class="mermaid">
+flowchart TD
+    classDef solicitante fill:#eef1f5,stroke:#49677a,stroke-width:1.5px,color:#2c3e50;
+    classDef sistema fill:#e7edf1,stroke:#3d5a6b,stroke-width:1.5px,color:#2c3e50;
+    classDef credito fill:#fbf1d9,stroke:#c19528,stroke-width:1.5px,color:#5c4813;
+    classDef reservas fill:#edfbf3,stroke:#1a6e3c,stroke-width:1.5px,color:#134a29;
+    classDef decision fill:#ffffff,stroke:#c19528,stroke-width:2px,color:#5c4813;
+    classDef terminal fill:#1e2d3d,stroke:#1e2d3d,stroke-width:1.5px,color:#ffffff;
+
+    subgraph SOL[" 👤  SOLICITANTE / HOTEL "]
+        direction TB
+        A1["Accede al portal Índice&lt;br/&gt;y abre el Formulario"]
+        A2["Diligencia el wizard de 5 pasos:&lt;br/&gt;datos, representante legal,&lt;br/&gt;contactos, documentos"]
+        A3["Verifica su identidad&lt;br/&gt;con código OTP al correo"]
+        A1 --> A2 --> A3
+    end
+
+    subgraph SYS[" ⚙️  SISTEMA · FORMULARIO (automático) "]
+        direction TB
+        B1["Crea el expediente&lt;br/&gt;en Google Drive"]
+        B2["Genera el PDF de la&lt;br/&gt;solicitud diligenciada"]
+        B3["Envía correo de confirmación&lt;br/&gt;con código de radicado"]
+        B4(["Sincroniza a la base de datos&lt;br/&gt;(staging → producción, cada 1 min)"])
+        B1 --> B2 --> B3 --> B4
+    end
+
+    subgraph CRED[" 🏦  EQUIPO DE CRÉDITO Y CARTERA · PANEL DE CONTROL "]
+        direction TB
+        C1["Recibe la notificación&lt;br/&gt;de nueva solicitud"]
+        C2["Revisa el expediente&lt;br/&gt;y los documentos"]
+        C3["Ejecuta Análisis con IA&lt;br/&gt;(Gemini) — opcional si es filial"]
+        C4{"¿Se aprueba&lt;br/&gt;la solicitud?"}
+        C5["Define distribución de cupo&lt;br/&gt;por hotel y genera la carta&lt;br/&gt;de aprobación en PDF"]
+        C6["Rechaza temporalmente&lt;br/&gt;con observaciones"]
+        C1 --> C2 --> C3 --> C4
+        C4 -- "Sí" --> C5
+        C4 -- "No" --> C6
+    end
+
+    E(["Crédito queda ACTIVO&lt;br/&gt;en la base de datos"]):::terminal
+
+    subgraph RES[" 🛎️  EQUIPO DE RESERVAS · PORTAL DE CONSULTA "]
+        direction TB
+        D1["Consulta el cupo vigente&lt;br/&gt;al gestionar una reserva/factura"]
+        D2["Marca 'Perfil creado (PMS)'&lt;br/&gt;cuando corresponde"]
+        D1 --> D2
+    end
+
+    A3 --> B1
+    B4 --> C1
+    C5 --> E
+    E --> D1
+    C6 -. "Correo con observaciones,&lt;br/&gt;el solicitante corrige y reenvía" .-> A2
+    E -. "Alertas automáticas de vencimiento&lt;br/&gt;documental o de cupo (1 año)" .-> C1
+
+    class A1,A2,A3 solicitante;
+    class B1,B2,B3,B4 sistema;
+    class C1,C2,C3,C5,C6 credito;
+    class C4 decision;
+    class D1,D2 reservas;
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="swatch"><span class="dot" style="background:#eef1f5;border:1.5px solid #49677a;"></span> Solicitante / Hotel</div>
+    <div class="swatch"><span class="dot" style="background:#e7edf1;border:1.5px solid #3d5a6b;"></span> Sistema (automático)</div>
+    <div class="swatch"><span class="dot" style="background:#fbf1d9;border:1.5px solid #c19528;"></span> Crédito y Cartera</div>
+    <div class="swatch"><span class="dot" style="background:#edfbf3;border:1.5px solid #1a6e3c;"></span> Equipo de Reservas</div>
+    <div class="swatch"><span class="dot" style="background:#1e2d3d;border:1.5px solid #1e2d3d;"></span> Hito / estado final</div>
+  </div>
+
+  <div class="notes-block">
+    <h3>Notas de lectura</h3>
+    <ul>
+      <li>Las flechas <strong>punteadas</strong> representan los dos ciclos de retroalimentación del proceso: el rechazo temporal que devuelve la solicitud al solicitante para corrección y reenvío, y las alertas automáticas de vencimiento (documental o de cupo a 1 año) que vuelven a poner la solicitud en el radar del equipo de Crédito y Cartera.</li>
+      <li>El "Análisis con IA" es obligatorio antes de poder aprobar, salvo cuando la empresa es filial de OxoHotel (caso en el que el botón de aprobación queda disponible de inmediato).</li>
+      <li>La sincronización a base de datos ocurre normalmente de forma inmediata al finalizar la solicitud; el proceso cada 1 minuto es la red de seguridad para los casos en que esa sincronización inicial falla.</li>
+      <li>Este diagrama cubre el flujo de negocio principal. Los flujos internos de cada módulo (backups, auditoría, gestión de usuarios y catálogos) se documentan por separado en los manuales de cada perfil.</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer class="manual-footer">
+  <p>OxoHotel · Sistema de Créditos Corporativos · Diagrama de Flujo v1.0</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      fontFamily: 'Outfit, system-ui, sans-serif',
+      primaryColor: '#eef1f5',
+      primaryTextColor: '#2c3e50',
+      primaryBorderColor: '#49677a',
+      lineColor: '#9a9a9a',
+      secondaryColor: '#fbf1d9',
+      tertiaryColor: '#edfbf3',
+      fontSize: '15px'
+    },
+    flowchart: { curve: 'basis', htmlLabels: true, padding: 16 },
+    securityLevel: 'loose'
+  });
+</script>
+
+</body>
+</html>

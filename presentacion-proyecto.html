@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sistema de Créditos Corporativos — Antes y Después | OxoHotel</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Mono:wght@500&display=swap');
+  :root {
+    --navy: #49677a; --navy2: #3d5a6b; --navy-dark: #1e2d3d;
+    --gold: #c19528; --gold2: #b9860f;
+    --text: #2c3e50; --text2: #5a6672; --muted: #8a95a1;
+    --bg: #f4f6f9; --surface: #ffffff;
+    --success: #1a6e3c; --success-bg: #edfbf3;
+    --danger: #b3261e; --danger-bg: #fdeceb;
+    --data-antes: #e34948; --data-ahora: #2a78d6;
+    --font: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font); color: var(--text); background: #d9dee5; }
+
+  .slide {
+    width: 297mm; min-height: 167mm; margin: 24px auto;
+    padding: 16mm 18mm; box-shadow: 0 6px 24px rgba(30,45,61,.18); position: relative;
+    overflow: hidden;
+  }
+  .slide:not(.dark) {
+    background:
+      radial-gradient(circle at 102% -8%, rgba(193,149,40,.16) 0%, rgba(193,149,40,0) 42%),
+      radial-gradient(circle at -6% 108%, rgba(61,90,107,.14) 0%, rgba(61,90,107,0) 40%),
+      radial-gradient(circle, rgba(61,90,107,.05) 1px, transparent 1.2px) 0 0/22px 22px,
+      var(--surface);
+  }
+  .slide:not(.dark)::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--navy2) 100%); z-index: 2;
+  }
+  .slide.dark {
+    color: #fff; display: flex; flex-direction: column; justify-content: center;
+    background-color: var(--navy-dark); background-size: cover; background-position: center;
+  }
+  .slide.dark::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(120deg, rgba(15,23,32,.94) 10%, rgba(30,45,61,.88) 45%, rgba(61,90,107,.72) 100%);
+    z-index: 0;
+  }
+  .slide.dark > * { position: relative; z-index: 1; }
+  .slide.dark p, .slide.dark li { color: rgba(255,255,255,.82); }
+  .slide.center { display: flex; flex-direction: column; justify-content: center; }
+
+  /* imagen de fondo con overlay para portada/cierre (Unsplash, licencia libre) */
+  .hero-bg-1 { background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1600&q=80'); }
+  .hero-bg-2 { background-image: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1600&q=80'); }
+
+  /* mockup de navegador para capturas reales del sistema */
+  .browser-mock {
+    background: #fff; border: 1px solid #dfe3e8; border-radius: 12px; overflow: hidden;
+    box-shadow: 0 14px 34px rgba(30,45,61,.22);
+  }
+  .browser-mock .bar { background: #eef1f5; padding: 8px 12px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid #e2e6ec; }
+  .browser-mock .bar span { width: 8px; height: 8px; border-radius: 50%; background: #cfd6dd; display: inline-block; }
+  .browser-mock .bar .url { margin-left: 8px; font-size: 9.5px; color: var(--muted); font-family: 'DM Mono', monospace; background: #fff; border-radius: 5px; padding: 2px 10px; flex: 1; }
+  .browser-mock img { display: block; width: 100%; height: 260px; object-fit: cover; object-position: top; }
+  .browser-mock.sm img { height: 150px; }
+
+  /* split layout: photo + content */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; margin-top: 20px; }
+  .photo-panel { position: relative; border-radius: 16px; overflow: hidden; box-shadow: 0 14px 30px rgba(30,45,61,.22); height: 300px; }
+  .photo-panel img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-panel .tint { position: absolute; inset: 0; }
+  .photo-panel.tint-bad .tint { background: linear-gradient(155deg, rgba(179,38,30,.5) 0%, rgba(20,20,20,.72) 100%); }
+  .photo-panel.tint-navy .tint { background: linear-gradient(155deg, rgba(30,45,61,.18) 0%, rgba(20,30,40,.78) 100%); }
+  .photo-panel.tint-gold .tint { background: linear-gradient(155deg, rgba(193,149,40,.30) 0%, rgba(30,45,61,.75) 100%); }
+  .photo-panel .cap { position: absolute; left: 18px; right: 18px; bottom: 16px; color: #fff; font-weight: 700; font-size: 14px; }
+  .photo-panel .cap small { display: block; font-weight: 500; font-size: 11px; color: rgba(255,255,255,.8); margin-top: 3px; }
+
+  .icon-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 20px; }
+  .icon-grid-2 .icon-tile { display: flex; align-items: center; gap: 12px; text-align: left; max-width: none; }
+  .icon-grid-2 .icon-badge { margin: 0; width: 46px; height: 46px; }
+  .icon-grid-2 .icon-badge .icon { width: 20px; height: 20px; }
+  .icon-grid-2 .t { font-size: 13.5px; }
+  .icon-grid-2 .d { font-size: 10.5px; }
+
+  h1 { font-size: 28px; font-weight: 800; color: var(--navy2); margin: 0 0 6px; position: relative; }
+  .dark h1 { color: #fff; }
+  .slide:not(.dark) h1 { padding-left: 16px; }
+  .slide:not(.dark) h1::before {
+    content: ''; position: absolute; left: 0; top: 2px; bottom: 2px; width: 5px; border-radius: 3px;
+    background: linear-gradient(180deg, var(--gold) 0%, var(--navy2) 100%);
+  }
+  p { font-size: 13.5px; line-height: 1.5; color: var(--text2); }
+  li { font-size: 13px; line-height: 1.5; color: var(--text2); margin-bottom: 6px; }
+
+  .kicker {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: #8a6a17; background: #fbf1d9;
+    border: 1px solid #ecd9a8; padding: 4px 12px; border-radius: 999px; margin-bottom: 12px;
+  }
+  .dark .kicker { color: #f0cd6e; background: rgba(212,168,47,.16); border-color: rgba(212,168,47,.4); }
+
+  .brand-row { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
+  .brand-row img { height: 34px; filter: brightness(0) invert(1); }
+  .brand-row .name { font-weight: 700; font-size: 15px; letter-spacing: .04em; }
+  .brand-row .sub { font-size: 11px; color: rgba(255,255,255,.55); }
+
+  /* ---- icon system ---- */
+  .icon {
+    width: 26px; height: 26px; display: block; flex-shrink: 0;
+    fill: none; stroke: currentColor; stroke-width: 1.7;
+    stroke-linecap: round; stroke-linejoin: round;
+  }
+  .icon.sm { width: 20px; height: 20px; }
+  .icon.lg { width: 30px; height: 30px; }
+  .icon.xl { width: 36px; height: 36px; }
+  .i-bad  { color: var(--danger); }
+  .i-good { color: var(--success); }
+  .i-navy { color: var(--navy2); }
+  .i-gold { color: var(--gold2); }
+
+  /* icon tiles */
+  .icon-row { display: flex; gap: 18px; justify-content: center; margin-top: 34px; }
+  .icon-tile { flex: 1; text-align: center; max-width: 220px; }
+  .icon-badge { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; box-shadow: 0 6px 14px rgba(30,45,61,.10); }
+  .icon-badge.bad { background: radial-gradient(circle at 32% 28%, #ffffff 0%, var(--danger-bg) 60%); border: 2px solid rgba(179,38,30,.16); }
+  .icon-badge.good { background: radial-gradient(circle at 32% 28%, #ffffff 0%, var(--success-bg) 60%); border: 2px solid rgba(26,110,60,.16); }
+  .icon-tile .t { font-weight: 700; font-size: 14.5px; color: var(--text); }
+  .icon-tile .d { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+
+  /* flow diagram */
+  .flow-row { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 40px; }
+  .flow-box { background: var(--bg); border: 1.5px solid #e2e6ec; border-radius: 14px; padding: 18px 22px; text-align: center; min-width: 150px; box-shadow: 0 4px 12px rgba(30,45,61,.06); }
+  .flow-box .icon { margin: 0 auto 10px; }
+  .flow-box .lb { font-weight: 700; font-size: 13.5px; color: var(--navy2); }
+  .flow-arrow { width: 26px; height: 26px; color: var(--gold2); }
+  .flow-down { display: flex; justify-content: center; margin-top: 4px; color: var(--gold2); }
+  .flow-down .icon { width: 22px; height: 22px; }
+
+  /* stat tiles */
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 30px; }
+  .stat-tile { background: var(--bg); border: 1px solid #e2e6ec; border-radius: 12px; padding: 18px 10px; text-align: center; box-shadow: 0 4px 12px rgba(30,45,61,.06); }
+  .stat-tile .icon { margin: 0 auto 8px; }
+  .stat-tile .num { font-family: 'DM Mono', monospace; font-weight: 500; font-size: 24px; color: var(--navy2); display: block; line-height: 1; }
+  .stat-tile .lbl { font-size: 10.5px; color: var(--muted); margin-top: 6px; display: block; }
+
+  /* antes/ahora checklist */
+  .col-heads { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 14px; text-align: center; }
+  .checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 30px; margin-top: 10px; }
+  .check-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 10px; }
+  .check-row.bad { background: var(--danger-bg); }
+  .check-row.good { background: var(--success-bg); }
+  .check-row .tx { font-size: 13.5px; font-weight: 600; color: var(--text); }
+
+  /* bar chart */
+  .barchart { margin-top: 18px; }
+  .barchart .row { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .barchart .name { width: 60px; font-size: 14px; font-weight: 700; color: var(--text2); text-align: right; }
+  .barchart .track { flex: 1; }
+  .barchart .val { font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 600; width: 70px; }
+
+  .hero-stat { text-align: center; margin-top: 22px; }
+  .hero-stat .value { font-family: 'DM Mono', monospace; font-weight: 600; font-size: 46px; color: var(--navy2); }
+  .hero-stat .label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+  .assumptions {
+    margin-top: 18px; padding: 9px 14px; border-left: 3px solid var(--gold);
+    background: #fbf7ec; border-radius: 0 8px 8px 0; font-size: 10.5px; color: var(--text2);
+  }
+
+  .two-money { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 30px; }
+  .money-card { background: var(--bg); border-radius: 14px; padding: 24px 22px; border: 1px solid #e2e6ec; text-align: center; box-shadow: 0 6px 16px rgba(30,45,61,.07); }
+  .money-card .icon { margin: 0 auto 10px; }
+  .money-card h4 { margin: 0 0 4px; font-size: 13px; color: var(--navy2); font-weight: 700; }
+  .money-card .amount { font-family: 'DM Mono', monospace; font-size: 26px; color: var(--gold2); font-weight: 600; }
+  .money-card p { font-size: 11px; margin-top: 8px; }
+
+  @media print {
+    @page { size: A4 landscape; margin: 0; }
+    body { background: #fff; }
+    .slide { margin: 0; box-shadow: none; page-break-after: always; width: auto; min-height: 100vh; }
+    .slide:last-child { page-break-after: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ SPRITE DE ÍCONOS (no se muestra) ============ -->
+<svg style="position:absolute; width:0; height:0; overflow:hidden;" aria-hidden="true">
+<defs>
+
+<symbol id="i-table" viewBox="0 0 24 24">
+  <rect x="3" y="4" width="18" height="16" rx="2"/>
+  <line x1="3" y1="10" x2="21" y2="10"/><line x1="3" y1="16" x2="21" y2="16"/>
+  <line x1="9" y1="4" x2="9" y2="20"/><line x1="15" y1="4" x2="15" y2="20"/>
+</symbol>
+
+<symbol id="i-folder-alert" viewBox="0 0 24 24">
+  <path d="M3 7a2 2 0 0 1 2-2h4.2l1.8 2H19a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/>
+  <line x1="12" y1="11" x2="12" y2="14.3"/>
+  <circle cx="12" cy="17" r="0.7" fill="currentColor" stroke="none"/>
+</symbol>
+
+<symbol id="i-search" viewBox="0 0 24 24">
+  <circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.3" y1="15.3" x2="21" y2="21"/>
+</symbol>
+
+<symbol id="i-bell-off" viewBox="0 0 24 24">
+  <path d="M6.3 6.3C6.1 6.8 6 7.4 6 8c0 7-3 9-3 9h13"/>
+  <path d="M18 8a6 6 0 0 0-9.9-4.6"/><path d="M18 8c0 4.5 1.5 6.9 2.4 8.1"/>
+  <path d="M13.7 21a2 2 0 0 1-3.4 0"/><line x1="3" y1="3" x2="21" y2="21"/>
+</symbol>
+
+<symbol id="i-bell" viewBox="0 0 24 24">
+  <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9z"/>
+  <path d="M13.7 21a2 2 0 0 1-3.4 0"/>
+</symbol>
+
+<symbol id="i-service-bell" viewBox="0 0 24 24">
+  <path d="M3 16a9 4.6 0 0 1 18 0"/><line x1="2" y1="16" x2="22" y2="16"/>
+  <line x1="12" y1="7" x2="12" y2="4.6"/><circle cx="12" cy="3.4" r="1.1" fill="currentColor" stroke="none"/>
+</symbol>
+
+<symbol id="i-phone" viewBox="0 0 24 24">
+  <path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1.1-.2c1.2.5 2.5.8 3.9.8a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1C12.4 22 2 11.6 2 5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.4.3 2.7.8 3.9a1 1 0 0 1-.2 1.1L6.6 10.8z"/>
+</symbol>
+
+<symbol id="i-file-doc" viewBox="0 0 24 24">
+  <path d="M6.5 3h7l4 4v13a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>
+  <path d="M13.5 3v4h4"/>
+  <line x1="8.5" y1="11" x2="15" y2="11"/><line x1="8.5" y1="14" x2="15" y2="14"/><line x1="8.5" y1="17" x2="12.5" y2="17"/>
+</symbol>
+
+<symbol id="i-building" viewBox="0 0 24 24">
+  <rect x="4" y="3" width="16" height="18" rx="1"/>
+  <line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="14" x2="20" y2="14"/>
+  <line x1="9" y1="21" x2="9" y2="3"/><line x1="15" y1="21" x2="15" y2="3"/>
+</symbol>
+
+<symbol id="i-hotel" viewBox="0 0 24 24">
+  <path d="M3 11 12 4 21 11"/><path d="M5 11v9h14v-9"/><rect x="10.3" y="15" width="3.4" height="5"/>
+</symbol>
+
+<symbol id="i-database" viewBox="0 0 24 24">
+  <ellipse cx="12" cy="5.5" rx="8" ry="3"/>
+  <path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13"/>
+  <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>
+</symbol>
+
+<symbol id="i-link2" viewBox="0 0 24 24">
+  <path d="M9.5 14.5a4.5 4.5 0 0 0 6.4 0l2-2a4.5 4.5 0 0 0-6.4-6.4l-1.1 1.1"/>
+  <path d="M14.5 9.5a4.5 4.5 0 0 0-6.4 0l-2 2a4.5 4.5 0 0 0 6.4 6.4l1.1-1.1"/>
+</symbol>
+
+<symbol id="i-briefcase" viewBox="0 0 24 24">
+  <rect x="3" y="8" width="18" height="12" rx="2"/>
+  <path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><line x1="3" y1="13.5" x2="21" y2="13.5"/>
+</symbol>
+
+<symbol id="i-paperclip" viewBox="0 0 24 24">
+  <path d="M8 12.5l6.5-6.5a3 3 0 1 1 4.2 4.2l-8.4 8.4a5 5 0 1 1-7-7l7.6-7.6"/>
+</symbol>
+
+<symbol id="i-cpu" viewBox="0 0 24 24">
+  <rect x="7" y="7" width="10" height="10" rx="1"/><rect x="10" y="10" width="4" height="4"/>
+  <line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/>
+  <line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/>
+</symbol>
+
+<symbol id="i-save" viewBox="0 0 24 24">
+  <path d="M5 3h11l4 4v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>
+  <path d="M8 3v5h6V3"/><rect x="7" y="13" width="10" height="6"/>
+</symbol>
+
+<symbol id="i-shield-check" viewBox="0 0 24 24">
+  <path d="M12 3l7 3v6c0 5-3.3 7.8-7 9-3.7-1.2-7-4-7-9V6l7-3z"/>
+  <path d="M9 12l2.2 2.2L15.5 10"/>
+</symbol>
+
+<symbol id="i-globe" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/>
+  <path d="M12 3c2.5 2.5 4 5.8 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.8-4-9s1.5-6.5 4-9z"/>
+</symbol>
+
+<symbol id="i-trending-up" viewBox="0 0 24 24">
+  <polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/>
+</symbol>
+
+<symbol id="i-zap" viewBox="0 0 24 24">
+  <path d="M13 2 4 14h6l-1 8 10-12h-6l1-8z"/>
+</symbol>
+
+<symbol id="i-hourglass" viewBox="0 0 24 24">
+  <line x1="6" y1="2" x2="18" y2="2"/><line x1="6" y1="22" x2="18" y2="22"/>
+  <path d="M8 2c0 4.5 3 5.5 4 7-1 1.5-4 2.5-4 7"/><path d="M16 2c0 4.5-3 5.5-4 7 1 1.5 4 2.5 4 7"/>
+</symbol>
+
+<symbol id="i-arrow-right" viewBox="0 0 24 24">
+  <line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/>
+</symbol>
+
+<symbol id="i-arrow-down" viewBox="0 0 24 24">
+  <line x1="12" y1="4" x2="12" y2="20"/><polyline points="6 14 12 20 18 14"/>
+</symbol>
+
+</defs>
+</svg>
+<!-- ============ FIN SPRITE ============ -->
+
+  <!-- 1. PORTADA -->
+  <section class="slide dark hero-bg-1">
+    <div class="brand-row">
+      <img src="https://lh3.googleusercontent.com/d/1zp0txIpT2kR3Z6XRUWE5-lasuRs-g9ok" alt="OxoHotel">
+      <div class="sub">Sistema de Créditos Corporativos</div>
+    </div>
+    <span class="kicker">Antes y después</span>
+    <h1 style="font-size:36px; max-width:760px;">Sistema de Créditos Corporativos</h1>
+    <p style="max-width:600px;">Resumen del proyecto e impacto en tiempo y dinero.</p>
+    <p style="margin-top:26px; color:rgba(255,255,255,.5); font-size:12px;">Julio 2026</p>
+  </section>
+
+  <!-- 2. EL PROBLEMA -->
+  <section class="slide center">
+    <span class="kicker">El problema</span>
+    <h1>Así se gestionaba el crédito antes</h1>
+    <div class="split">
+      <div class="photo-panel tint-bad">
+        <img src="https://images.unsplash.com/photo-1753340328027-73acda445c58?auto=format&fit=crop&w=1200&q=75" alt="Escritorio de oficina con laptop, teléfono y papeles dispersos">
+        <div class="tint"></div>
+        <div class="cap">Todo dependía de una hoja de cálculo<small>Sin base de datos ni automatización real</small></div>
+      </div>
+      <div class="icon-grid-2">
+        <div class="icon-tile"><div class="icon-badge bad"><svg class="icon lg i-bad"><use href="#i-table"/></svg></div><div><div class="t">+10.000 filas</div><div class="d">Hoja de cálculo desbordada</div></div></div>
+        <div class="icon-tile"><div class="icon-badge bad"><svg class="icon lg i-bad"><use href="#i-folder-alert"/></svg></div><div><div class="t">Carpetas perdidas</div><div class="d">Documentos sin control</div></div></div>
+        <div class="icon-tile"><div class="icon-badge bad"><svg class="icon lg i-bad"><use href="#i-search"/></svg></div><div><div class="t">Búsquedas lentas</div><div class="d">Minutos por cada consulta</div></div></div>
+        <div class="icon-tile"><div class="icon-badge bad"><svg class="icon lg i-bad"><use href="#i-bell-off"/></svg></div><div><div class="t">Cero alertas</div><div class="d">Vencimientos sin aviso</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. LA SOLUCIÓN -->
+  <section class="slide center">
+    <span class="kicker">La solución</span>
+    <h1>Un sistema propio, de punta a punta</h1>
+    <div style="display:grid; grid-template-columns: 1.1fr 1fr; gap:36px; align-items:center; margin-top:14px;">
+      <div>
+        <div class="flow-row" style="justify-content:flex-start; margin-top:10px;">
+          <div class="flow-box"><svg class="icon lg i-navy"><use href="#i-file-doc"/></svg><div class="lb">Formulario</div></div>
+          <svg class="icon flow-arrow"><use href="#i-arrow-right"/></svg>
+          <div class="flow-box"><svg class="icon lg i-navy"><use href="#i-building"/></svg><div class="lb">Panel de Control</div></div>
+        </div>
+        <div class="flow-row" style="justify-content:flex-start; margin-top:14px;">
+          <svg class="icon flow-arrow"><use href="#i-arrow-right"/></svg>
+          <div class="flow-box"><svg class="icon lg i-navy"><use href="#i-service-bell"/></svg><div class="lb">Portal Reservas</div></div>
+          <svg class="icon flow-arrow"><use href="#i-arrow-right"/></svg>
+          <div class="flow-box"><svg class="icon lg i-navy"><use href="#i-database"/></svg><div class="lb">Base de datos · 21 tablas</div></div>
+        </div>
+        <p style="margin-top:22px;">Documentos, correos, auditoría y respaldos <strong>100% automáticos</strong>. IA integrada para revisar cada expediente antes de aprobar.</p>
+      </div>
+      <div class="browser-mock">
+        <div class="bar"><span></span><span></span><span></span><span class="url">panel-control.oxohotel.internal</span></div>
+        <img src="assets/credito-cartera/dashboard_inicial.png" alt="Dashboard real del Panel de Control">
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. EL SISTEMA HOY EN NÚMEROS -->
+  <section class="slide center">
+    <span class="kicker">El sistema hoy</span>
+    <h1>Números reales de la base de datos</h1>
+    <div class="stat-grid">
+      <div class="stat-tile"><svg class="icon i-navy"><use href="#i-file-doc"/></svg><span class="num">~380</span><span class="lbl">Solicitudes gestionadas</span></div>
+      <div class="stat-tile"><svg class="icon i-navy"><use href="#i-link2"/></svg><span class="num">~4.600</span><span class="lbl">Créditos por hotel organizados</span></div>
+      <div class="stat-tile"><svg class="icon i-navy"><use href="#i-briefcase"/></svg><span class="num">~380</span><span class="lbl">Empresas registradas</span></div>
+      <div class="stat-tile"><svg class="icon i-navy"><use href="#i-hotel"/></svg><span class="num">31</span><span class="lbl">Hoteles integrados</span></div>
+      <div class="stat-tile"><svg class="icon i-navy"><use href="#i-paperclip"/></svg><span class="num">210+</span><span class="lbl">Documentos digitalizados</span></div>
+      <div class="stat-tile"><svg class="icon i-navy"><use href="#i-cpu"/></svg><span class="num">51</span><span class="lbl">Auditorías con IA</span></div>
+      <div class="stat-tile"><svg class="icon i-navy"><use href="#i-save"/></svg><span class="num">13</span><span class="lbl">Copias de seguridad</span></div>
+      <div class="stat-tile"><svg class="icon i-navy"><use href="#i-database"/></svg><span class="num">21</span><span class="lbl">Tablas relacionadas</span></div>
+    </div>
+    <p style="text-align:center; margin-top:20px; font-size:12px; color:var(--muted);">Todo esto en apenas <strong>~6 semanas</strong> de uso por el equipo de Cartera.</p>
+  </section>
+
+  <!-- 5. ANTES VS DESPUÉS -->
+  <section class="slide center">
+    <span class="kicker">Comparación directa</span>
+    <h1>Antes vs. Después</h1>
+    <div class="col-heads">
+      <span class="kicker" style="background:var(--danger-bg); color:var(--danger); border-color:#f3c9c5;">ANTES</span>
+      <span class="kicker" style="background:var(--success-bg); color:var(--success); border-color:#bfe3cd;">AHORA</span>
+    </div>
+    <div class="checklist-grid">
+      <div class="check-row bad"><svg class="icon sm i-bad"><use href="#i-table"/></svg><span class="tx">Hoja de +10.000 filas</span></div>
+      <div class="check-row good"><svg class="icon sm i-good"><use href="#i-database"/></svg><span class="tx">Base de datos relacional</span></div>
+      <div class="check-row bad"><svg class="icon sm i-bad"><use href="#i-folder-alert"/></svg><span class="tx">Carpetas dispersas o perdidas</span></div>
+      <div class="check-row good"><svg class="icon sm i-good"><use href="#i-paperclip"/></svg><span class="tx">Un expediente por solicitud</span></div>
+      <div class="check-row bad"><svg class="icon sm i-bad"><use href="#i-search"/></svg><span class="tx">Buscar historial: minutos</span></div>
+      <div class="check-row good"><svg class="icon sm i-good"><use href="#i-zap"/></svg><span class="tx">Buscar historial: segundos</span></div>
+      <div class="check-row bad"><svg class="icon sm i-bad"><use href="#i-bell-off"/></svg><span class="tx">Sin alertas de vencimiento</span></div>
+      <div class="check-row good"><svg class="icon sm i-good"><use href="#i-bell"/></svg><span class="tx">Alertas automáticas</span></div>
+      <div class="check-row bad"><svg class="icon sm i-bad"><use href="#i-phone"/></svg><span class="tx">Reservas llamaba a Cartera</span></div>
+      <div class="check-row good"><svg class="icon sm i-good"><use href="#i-globe"/></svg><span class="tx">Portal de consulta 24/7</span></div>
+    </div>
+  </section>
+
+  <!-- 6. AHORRO DE TIEMPO -->
+  <section class="slide center">
+    <span class="kicker">Impacto · Tiempo</span>
+    <h1>Minutos administrativos por solicitud</h1>
+    <div class="split" style="margin-top:10px;">
+      <div>
+        <div class="barchart">
+          <div class="row">
+            <span class="name" style="color:var(--data-antes);">Antes</span>
+            <span class="track"><svg viewBox="0 0 480 28" width="100%" height="28"><rect x="0" y="0" width="480" height="28" rx="14" fill="#e34948"/></svg></span>
+            <span class="val" style="color:var(--data-antes);">115 min</span>
+          </div>
+          <div class="row">
+            <span class="name" style="color:var(--data-ahora);">Ahora</span>
+            <span class="track"><svg viewBox="0 0 480 28" width="100%" height="28"><rect x="0" y="0" width="92" height="28" rx="14" fill="#2a78d6"/></svg></span>
+            <span class="val" style="color:var(--data-ahora);">22 min</span>
+          </div>
+        </div>
+        <div class="hero-stat" style="text-align:left;">
+          <div class="value">~1.000 horas / año</div>
+          <div class="label">de tiempo administrativo recuperado para el equipo</div>
+        </div>
+      </div>
+      <div class="photo-panel tint-navy">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=75" alt="Panel de análisis de datos en pantalla de laptop">
+        <div class="tint"></div>
+        <div class="cap">Más tiempo para análisis<small>Menos tiempo en tareas operativas repetitivas</small></div>
+      </div>
+    </div>
+    <div class="assumptions">
+      Estimación conservadora: ~90 min ahorrados/solicitud × ~50 solicitudes/mes, más el tiempo que ya no gasta Reservas confirmando cupos por teléfono. Equivale a ≈ medio año de una persona de tiempo completo.
+    </div>
+  </section>
+
+  <!-- 7. AHORRO ECONÓMICO -->
+  <section class="slide center">
+    <span class="kicker">Impacto · Dinero</span>
+    <h1>Valor generado para OxoHotel</h1>
+    <div class="two-money">
+      <div class="money-card">
+        <svg class="icon xl i-gold"><use href="#i-briefcase"/></svg>
+        <h4>Desarrollo externo evitado</h4>
+        <div class="amount">COP $25M – $50M</div>
+        <p>USD ≈ $6.000 – $12.000. Rango de mercado local para un desarrollo freelance/agencia a la medida de este alcance, construido internamente.</p>
+      </div>
+      <div class="money-card">
+        <svg class="icon xl i-gold"><use href="#i-hourglass"/></svg>
+        <h4>Ahorro operativo estimado</h4>
+        <div class="amount">~COP 26 millones / año</div>
+        <p>Valor de las ~1.000 horas/año recuperadas, a costo hora administrativo de referencia.</p>
+      </div>
+    </div>
+    <div class="assumptions">Cifras estimadas con supuestos declarados, no cotizaciones ni auditoría formal — sirven para dimensionar el orden de magnitud del beneficio.</div>
+  </section>
+
+  <!-- 8. BENEFICIOS + QUÉ SIGUE -->
+  <section class="slide center">
+    <span class="kicker">Más allá del ahorro</span>
+    <h1>Otros beneficios y próximos pasos</h1>
+    <div class="split">
+      <div class="icon-grid-2">
+        <div class="icon-tile"><div class="icon-badge good"><svg class="icon lg i-good"><use href="#i-search"/></svg></div><div><div class="t">Trazabilidad total</div><div class="d">Quién, qué y cuándo</div></div></div>
+        <div class="icon-tile"><div class="icon-badge good"><svg class="icon lg i-good"><use href="#i-shield-check"/></svg></div><div><div class="t">Datos seguros</div><div class="d">Ya no en carpetas sueltas</div></div></div>
+        <div class="icon-tile"><div class="icon-badge good"><svg class="icon lg i-good"><use href="#i-globe"/></svg></div><div><div class="t">24/7</div><div class="d">Autoservicio sin horario</div></div></div>
+        <div class="icon-tile"><div class="icon-badge good"><svg class="icon lg i-good"><use href="#i-trending-up"/></svg></div><div><div class="t">Escalable</div><div class="d">Crece sin rediseñar</div></div></div>
+      </div>
+      <div class="photo-panel tint-gold">
+        <img src="https://images.unsplash.com/photo-1758518730384-be3d205838e8?auto=format&fit=crop&w=1200&q=75" alt="Acuerdo entre equipos de trabajo">
+        <div class="tint"></div>
+        <div class="cap">Un proyecto propio<small>Construido internamente, sin depender de terceros</small></div>
+      </div>
+    </div>
+    <div class="assumptions" style="margin-top:20px;">
+      <strong>Próximos pasos:</strong> reforzar seguridad de contraseñas/credenciales · confirmar monitoreo de respaldos y alertas · activar catálogo de monedas si se necesita · manuales técnicos y de usuario ya entregados.
+    </div>
+  </section>
+
+  <!-- 9. CIERRE -->
+  <section class="slide dark hero-bg-2">
+    <div class="brand-row">
+      <img src="https://lh3.googleusercontent.com/d/1zp0txIpT2kR3Z6XRUWE5-lasuRs-g9ok" alt="OxoHotel">
+      <div class="sub">Sistema de Créditos Corporativos</div>
+    </div>
+    <span class="kicker">Cierre</span>
+    <h1 style="font-size:38px; max-width:700px;">Menos filas. Más decisiones.</h1>
+    <p style="max-width:600px;">El crédito corporativo de OxoHotel dejó de vivir en una hoja de cálculo — ahora vive en un sistema que audita, alerta y aprende por nosotros. Gracias por el espacio; ideas para la siguiente fase son bienvenidas.</p>
+  </section>
+
+</body>
+</html>
