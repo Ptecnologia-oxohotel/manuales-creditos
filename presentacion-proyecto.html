@@ -1,309 +1,922 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sistema de Créditos Corporativos — Antes y Después | OxoHotel</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Mono:wght@500&display=swap');
-  :root {
-    --navy: #49677a; --navy2: #3d5a6b; --navy-dark: #1e2d3d;
-    --gold: #c19528; --gold2: #b9860f;
-    --text: #2c3e50; --text2: #5a6672; --muted: #8a95a1;
-    --bg: #f4f6f9; --surface: #ffffff;
-    --success: #1a6e3c; --success-bg: #edfbf3;
-    --danger: #b3261e; --danger-bg: #fdeceb;
-    --data-antes: #e34948; --data-ahora: #2a78d6;
-    --font: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; font-family: var(--font); color: var(--text); background: #d9dee5; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sistema de Créditos Corporativos — Antes y Después | OxoHotel</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Mono:wght@500&display=swap');
 
-  .slide {
-    width: 297mm; min-height: 167mm; margin: 24px auto;
-    padding: 16mm 18mm; box-shadow: 0 6px 24px rgba(30,45,61,.18); position: relative;
-    overflow: hidden;
-  }
-  .slide:not(.dark) {
-    background:
-      radial-gradient(circle at 102% -8%, rgba(193,149,40,.16) 0%, rgba(193,149,40,0) 42%),
-      radial-gradient(circle at -6% 108%, rgba(61,90,107,.14) 0%, rgba(61,90,107,0) 40%),
-      radial-gradient(circle, rgba(61,90,107,.05) 1px, transparent 1.2px) 0 0/22px 22px,
-      var(--surface);
-  }
-  .slide:not(.dark)::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
-    background: linear-gradient(90deg, var(--gold) 0%, var(--navy2) 100%); z-index: 2;
-  }
-  .slide.dark {
-    color: #fff; display: flex; flex-direction: column; justify-content: center;
-    background-color: var(--navy-dark); background-size: cover; background-position: center;
-  }
-  .slide.dark::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(120deg, rgba(15,23,32,.94) 10%, rgba(30,45,61,.88) 45%, rgba(61,90,107,.72) 100%);
-    z-index: 0;
-  }
-  .slide.dark > * { position: relative; z-index: 1; }
-  .slide.dark p, .slide.dark li { color: rgba(255,255,255,.82); }
-  .slide.center { display: flex; flex-direction: column; justify-content: center; }
+    :root {
+      --navy: #49677a;
+      --navy2: #3d5a6b;
+      --navy-dark: #1e2d3d;
+      --gold: #c19528;
+      --gold2: #b9860f;
+      --text: #2c3e50;
+      --text2: #5a6672;
+      --muted: #8a95a1;
+      --bg: #f4f6f9;
+      --surface: #ffffff;
+      --success: #1a6e3c;
+      --success-bg: #edfbf3;
+      --danger: #b3261e;
+      --danger-bg: #fdeceb;
+      --data-antes: #e34948;
+      --data-ahora: #2a78d6;
+      --font: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    }
 
-  /* imagen de fondo con overlay para portada/cierre (Unsplash, licencia libre) */
-  .hero-bg-1 { background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1600&q=80'); }
-  .hero-bg-2 { background-image: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1600&q=80'); }
+    * {
+      box-sizing: border-box;
+    }
 
-  /* mockup de navegador para capturas reales del sistema */
-  .browser-mock {
-    background: #fff; border: 1px solid #dfe3e8; border-radius: 12px; overflow: hidden;
-    box-shadow: 0 14px 34px rgba(30,45,61,.22);
-  }
-  .browser-mock .bar { background: #eef1f5; padding: 8px 12px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid #e2e6ec; }
-  .browser-mock .bar span { width: 8px; height: 8px; border-radius: 50%; background: #cfd6dd; display: inline-block; }
-  .browser-mock .bar .url { margin-left: 8px; font-size: 9.5px; color: var(--muted); font-family: 'DM Mono', monospace; background: #fff; border-radius: 5px; padding: 2px 10px; flex: 1; }
-  .browser-mock img { display: block; width: 100%; height: 260px; object-fit: cover; object-position: top; }
-  .browser-mock.sm img { height: 150px; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--text);
+      background: #d9dee5;
+    }
 
-  /* split layout: photo + content */
-  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; margin-top: 20px; }
-  .photo-panel { position: relative; border-radius: 16px; overflow: hidden; box-shadow: 0 14px 30px rgba(30,45,61,.22); height: 300px; }
-  .photo-panel img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .photo-panel .tint { position: absolute; inset: 0; }
-  .photo-panel.tint-bad .tint { background: linear-gradient(155deg, rgba(179,38,30,.5) 0%, rgba(20,20,20,.72) 100%); }
-  .photo-panel.tint-navy .tint { background: linear-gradient(155deg, rgba(30,45,61,.18) 0%, rgba(20,30,40,.78) 100%); }
-  .photo-panel.tint-gold .tint { background: linear-gradient(155deg, rgba(193,149,40,.30) 0%, rgba(30,45,61,.75) 100%); }
-  .photo-panel .cap { position: absolute; left: 18px; right: 18px; bottom: 16px; color: #fff; font-weight: 700; font-size: 14px; }
-  .photo-panel .cap small { display: block; font-weight: 500; font-size: 11px; color: rgba(255,255,255,.8); margin-top: 3px; }
+    .slide {
+      width: 297mm;
+      min-height: 167mm;
+      margin: 24px auto;
+      padding: 16mm 18mm;
+      box-shadow: 0 6px 24px rgba(30, 45, 61, .18);
+      position: relative;
+      overflow: hidden;
+    }
 
-  .icon-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 20px; }
-  .icon-grid-2 .icon-tile { display: flex; align-items: center; gap: 12px; text-align: left; max-width: none; }
-  .icon-grid-2 .icon-badge { margin: 0; width: 46px; height: 46px; }
-  .icon-grid-2 .icon-badge .icon { width: 20px; height: 20px; }
-  .icon-grid-2 .t { font-size: 13.5px; }
-  .icon-grid-2 .d { font-size: 10.5px; }
+    .slide:not(.dark) {
+      background:
+        radial-gradient(circle at 102% -8%, rgba(193, 149, 40, .16) 0%, rgba(193, 149, 40, 0) 42%),
+        radial-gradient(circle at -6% 108%, rgba(61, 90, 107, .14) 0%, rgba(61, 90, 107, 0) 40%),
+        radial-gradient(circle, rgba(61, 90, 107, .05) 1px, transparent 1.2px) 0 0/22px 22px,
+        var(--surface);
+    }
 
-  h1 { font-size: 28px; font-weight: 800; color: var(--navy2); margin: 0 0 6px; position: relative; }
-  .dark h1 { color: #fff; }
-  .slide:not(.dark) h1 { padding-left: 16px; }
-  .slide:not(.dark) h1::before {
-    content: ''; position: absolute; left: 0; top: 2px; bottom: 2px; width: 5px; border-radius: 3px;
-    background: linear-gradient(180deg, var(--gold) 0%, var(--navy2) 100%);
-  }
-  p { font-size: 13.5px; line-height: 1.5; color: var(--text2); }
-  li { font-size: 13px; line-height: 1.5; color: var(--text2); margin-bottom: 6px; }
+    .slide:not(.dark)::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--navy2) 100%);
+      z-index: 2;
+    }
 
-  .kicker {
-    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em;
-    text-transform: uppercase; color: #8a6a17; background: #fbf1d9;
-    border: 1px solid #ecd9a8; padding: 4px 12px; border-radius: 999px; margin-bottom: 12px;
-  }
-  .dark .kicker { color: #f0cd6e; background: rgba(212,168,47,.16); border-color: rgba(212,168,47,.4); }
+    .slide.dark {
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-color: var(--navy-dark);
+      background-size: cover;
+      background-position: center;
+    }
 
-  .brand-row { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
-  .brand-row img { height: 34px; filter: brightness(0) invert(1); }
-  .brand-row .name { font-weight: 700; font-size: 15px; letter-spacing: .04em; }
-  .brand-row .sub { font-size: 11px; color: rgba(255,255,255,.55); }
+    .slide.dark::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(15, 23, 32, .94) 10%, rgba(30, 45, 61, .88) 45%, rgba(61, 90, 107, .72) 100%);
+      z-index: 0;
+    }
 
-  /* ---- icon system ---- */
-  .icon {
-    width: 26px; height: 26px; display: block; flex-shrink: 0;
-    fill: none; stroke: currentColor; stroke-width: 1.7;
-    stroke-linecap: round; stroke-linejoin: round;
-  }
-  .icon.sm { width: 20px; height: 20px; }
-  .icon.lg { width: 30px; height: 30px; }
-  .icon.xl { width: 36px; height: 36px; }
-  .i-bad  { color: var(--danger); }
-  .i-good { color: var(--success); }
-  .i-navy { color: var(--navy2); }
-  .i-gold { color: var(--gold2); }
+    .slide.dark>* {
+      position: relative;
+      z-index: 1;
+    }
 
-  /* icon tiles */
-  .icon-row { display: flex; gap: 18px; justify-content: center; margin-top: 34px; }
-  .icon-tile { flex: 1; text-align: center; max-width: 220px; }
-  .icon-badge { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; box-shadow: 0 6px 14px rgba(30,45,61,.10); }
-  .icon-badge.bad { background: radial-gradient(circle at 32% 28%, #ffffff 0%, var(--danger-bg) 60%); border: 2px solid rgba(179,38,30,.16); }
-  .icon-badge.good { background: radial-gradient(circle at 32% 28%, #ffffff 0%, var(--success-bg) 60%); border: 2px solid rgba(26,110,60,.16); }
-  .icon-tile .t { font-weight: 700; font-size: 14.5px; color: var(--text); }
-  .icon-tile .d { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+    .slide.dark p,
+    .slide.dark li {
+      color: rgba(255, 255, 255, .82);
+    }
 
-  /* flow diagram */
-  .flow-row { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 40px; }
-  .flow-box { background: var(--bg); border: 1.5px solid #e2e6ec; border-radius: 14px; padding: 18px 22px; text-align: center; min-width: 150px; box-shadow: 0 4px 12px rgba(30,45,61,.06); }
-  .flow-box .icon { margin: 0 auto 10px; }
-  .flow-box .lb { font-weight: 700; font-size: 13.5px; color: var(--navy2); }
-  .flow-arrow { width: 26px; height: 26px; color: var(--gold2); }
-  .flow-down { display: flex; justify-content: center; margin-top: 4px; color: var(--gold2); }
-  .flow-down .icon { width: 22px; height: 22px; }
+    .slide.center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
 
-  /* stat tiles */
-  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 30px; }
-  .stat-tile { background: var(--bg); border: 1px solid #e2e6ec; border-radius: 12px; padding: 18px 10px; text-align: center; box-shadow: 0 4px 12px rgba(30,45,61,.06); }
-  .stat-tile .icon { margin: 0 auto 8px; }
-  .stat-tile .num { font-family: 'DM Mono', monospace; font-weight: 500; font-size: 24px; color: var(--navy2); display: block; line-height: 1; }
-  .stat-tile .lbl { font-size: 10.5px; color: var(--muted); margin-top: 6px; display: block; }
+    /* imagen de fondo con overlay para portada/cierre (Unsplash, licencia libre) */
+    .hero-bg-1 {
+      background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1600&q=80');
+    }
 
-  /* antes/ahora checklist */
-  .col-heads { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 14px; text-align: center; }
-  .checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 30px; margin-top: 10px; }
-  .check-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 10px; }
-  .check-row.bad { background: var(--danger-bg); }
-  .check-row.good { background: var(--success-bg); }
-  .check-row .tx { font-size: 13.5px; font-weight: 600; color: var(--text); }
+    .hero-bg-2 {
+      background-image: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1600&q=80');
+    }
 
-  /* bar chart */
-  .barchart { margin-top: 18px; }
-  .barchart .row { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
-  .barchart .name { width: 60px; font-size: 14px; font-weight: 700; color: var(--text2); text-align: right; }
-  .barchart .track { flex: 1; }
-  .barchart .val { font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 600; width: 70px; }
+    /* mockup de navegador para capturas reales del sistema */
+    .browser-mock {
+      background: #fff;
+      border: 1px solid #dfe3e8;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 14px 34px rgba(30, 45, 61, .22);
+    }
 
-  .hero-stat { text-align: center; margin-top: 22px; }
-  .hero-stat .value { font-family: 'DM Mono', monospace; font-weight: 600; font-size: 46px; color: var(--navy2); }
-  .hero-stat .label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .browser-mock .bar {
+      background: #eef1f5;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid #e2e6ec;
+    }
 
-  .assumptions {
-    margin-top: 18px; padding: 9px 14px; border-left: 3px solid var(--gold);
-    background: #fbf7ec; border-radius: 0 8px 8px 0; font-size: 10.5px; color: var(--text2);
-  }
+    .browser-mock .bar span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #cfd6dd;
+      display: inline-block;
+    }
 
-  .two-money { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 30px; }
-  .money-card { background: var(--bg); border-radius: 14px; padding: 24px 22px; border: 1px solid #e2e6ec; text-align: center; box-shadow: 0 6px 16px rgba(30,45,61,.07); }
-  .money-card .icon { margin: 0 auto 10px; }
-  .money-card h4 { margin: 0 0 4px; font-size: 13px; color: var(--navy2); font-weight: 700; }
-  .money-card .amount { font-family: 'DM Mono', monospace; font-size: 26px; color: var(--gold2); font-weight: 600; }
-  .money-card p { font-size: 11px; margin-top: 8px; }
+    .browser-mock .bar .url {
+      margin-left: 8px;
+      font-size: 9.5px;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+      background: #fff;
+      border-radius: 5px;
+      padding: 2px 10px;
+      flex: 1;
+    }
 
-  @media print {
-    @page { size: A4 landscape; margin: 0; }
-    body { background: #fff; }
-    .slide { margin: 0; box-shadow: none; page-break-after: always; width: auto; min-height: 100vh; }
-    .slide:last-child { page-break-after: auto; }
-  }
-</style>
+    .browser-mock img {
+      display: block;
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .browser-mock.sm img {
+      height: 150px;
+    }
+
+    /* split layout: photo + content */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .photo-panel {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 14px 30px rgba(30, 45, 61, .22);
+      height: 300px;
+    }
+
+    .photo-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-panel .tint {
+      position: absolute;
+      inset: 0;
+    }
+
+    .photo-panel.tint-bad .tint {
+      background: linear-gradient(155deg, rgba(179, 38, 30, .5) 0%, rgba(20, 20, 20, .72) 100%);
+    }
+
+    .photo-panel.tint-navy .tint {
+      background: linear-gradient(155deg, rgba(30, 45, 61, .18) 0%, rgba(20, 30, 40, .78) 100%);
+    }
+
+    .photo-panel.tint-gold .tint {
+      background: linear-gradient(155deg, rgba(193, 149, 40, .30) 0%, rgba(30, 45, 61, .75) 100%);
+    }
+
+    .photo-panel .cap {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .photo-panel .cap small {
+      display: block;
+      font-weight: 500;
+      font-size: 11px;
+      color: rgba(255, 255, 255, .8);
+      margin-top: 3px;
+    }
+
+    .icon-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px 20px;
+    }
+
+    .icon-grid-2 .icon-tile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+      max-width: none;
+    }
+
+    .icon-grid-2 .icon-badge {
+      margin: 0;
+      width: 46px;
+      height: 46px;
+    }
+
+    .icon-grid-2 .icon-badge .icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .icon-grid-2 .t {
+      font-size: 13.5px;
+    }
+
+    .icon-grid-2 .d {
+      font-size: 10.5px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--navy2);
+      margin: 0 0 6px;
+      position: relative;
+    }
+
+    .dark h1 {
+      color: #fff;
+    }
+
+    .slide:not(.dark) h1 {
+      padding-left: 16px;
+    }
+
+    .slide:not(.dark) h1::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 2px;
+      bottom: 2px;
+      width: 5px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, var(--gold) 0%, var(--navy2) 100%);
+    }
+
+    p {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--text2);
+    }
+
+    li {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text2);
+      margin-bottom: 6px;
+    }
+
+    .kicker {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #8a6a17;
+      background: #fbf1d9;
+      border: 1px solid #ecd9a8;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .dark .kicker {
+      color: #f0cd6e;
+      background: rgba(212, 168, 47, .16);
+      border-color: rgba(212, 168, 47, .4);
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 26px;
+    }
+
+    .brand-row img {
+      height: 34px;
+      filter: brightness(0) invert(1);
+    }
+
+    .brand-row .name {
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: .04em;
+    }
+
+    .brand-row .sub {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .55);
+    }
+
+    /* ---- icon system ---- */
+    .icon {
+      width: 26px;
+      height: 26px;
+      display: block;
+      flex-shrink: 0;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .icon.sm {
+      width: 20px;
+      height: 20px;
+    }
+
+    .icon.lg {
+      width: 30px;
+      height: 30px;
+    }
+
+    .icon.xl {
+      width: 36px;
+      height: 36px;
+    }
+
+    .i-bad {
+      color: var(--danger);
+    }
+
+    .i-good {
+      color: var(--success);
+    }
+
+    .i-navy {
+      color: var(--navy2);
+    }
+
+    .i-gold {
+      color: var(--gold2);
+    }
+
+    /* icon tiles */
+    .icon-row {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      margin-top: 34px;
+    }
+
+    .icon-tile {
+      flex: 1;
+      text-align: center;
+      max-width: 220px;
+    }
+
+    .icon-badge {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      box-shadow: 0 6px 14px rgba(30, 45, 61, .10);
+    }
+
+    .icon-badge.bad {
+      background: radial-gradient(circle at 32% 28%, #ffffff 0%, var(--danger-bg) 60%);
+      border: 2px solid rgba(179, 38, 30, .16);
+    }
+
+    .icon-badge.good {
+      background: radial-gradient(circle at 32% 28%, #ffffff 0%, var(--success-bg) 60%);
+      border: 2px solid rgba(26, 110, 60, .16);
+    }
+
+    .icon-tile .t {
+      font-weight: 700;
+      font-size: 14.5px;
+      color: var(--text);
+    }
+
+    .icon-tile .d {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* flow diagram */
+    .flow-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 40px;
+    }
+
+    .flow-box {
+      background: var(--bg);
+      border: 1.5px solid #e2e6ec;
+      border-radius: 14px;
+      padding: 18px 22px;
+      text-align: center;
+      min-width: 150px;
+      box-shadow: 0 4px 12px rgba(30, 45, 61, .06);
+    }
+
+    .flow-box .icon {
+      margin: 0 auto 10px;
+    }
+
+    .flow-box .lb {
+      font-weight: 700;
+      font-size: 13.5px;
+      color: var(--navy2);
+    }
+
+    .flow-arrow {
+      width: 26px;
+      height: 26px;
+      color: var(--gold2);
+    }
+
+    .flow-down {
+      display: flex;
+      justify-content: center;
+      margin-top: 4px;
+      color: var(--gold2);
+    }
+
+    .flow-down .icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* puzzle diagram */
+    .puzzle-container {
+      width: 100%;
+      max-width: 320px;
+      margin: 10px auto;
+    }
+
+    .puzzle-piece {
+      filter: drop-shadow(0 4px 10px rgba(30, 45, 61, 0.06));
+    }
+
+    .puzzle-icon {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .puzzle-label {
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 14.5px;
+      text-anchor: middle;
+    }
+
+    /* stat tiles */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .stat-tile {
+      background: var(--bg);
+      border: 1px solid #e2e6ec;
+      border-radius: 12px;
+      padding: 18px 10px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(30, 45, 61, .06);
+    }
+
+    .stat-tile .icon {
+      margin: 0 auto 8px;
+    }
+
+    .stat-tile .num {
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      font-size: 24px;
+      color: var(--navy2);
+      display: block;
+      line-height: 1;
+    }
+
+    .stat-tile .lbl {
+      font-size: 10.5px;
+      color: var(--muted);
+      margin-top: 6px;
+      display: block;
+    }
+
+    /* antes/ahora flowcharts */
+    .compare-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 15px;
+      align-items: stretch;
+    }
+
+    .flow-column {
+      border-radius: 16px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 14px rgba(30, 45, 61, 0.05);
+      position: relative;
+      max-height: 330px;
+      box-sizing: border-box;
+    }
+
+    .flow-column svg {
+      display: block;
+      width: 100%;
+      flex-grow: 1;
+      min-height: 0;
+    }
+
+    .flow-column.bad {
+      background: #fdf8f7;
+      border: 1.5px solid #f5d6d3;
+      border-top: 5px solid var(--danger);
+    }
+
+    .flow-column.good {
+      background: #f7fbf8;
+      border: 1.5px solid #dbece0;
+      border-top: 5px solid var(--success);
+    }
+
+    .flow-header {
+      font-size: 13.5px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .flow-column.bad .flow-header {
+      color: var(--danger);
+    }
+
+    .flow-column.good .flow-header {
+      color: var(--success);
+    }
+
+    .flow-text-title {
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 700;
+      fill: var(--text);
+    }
+
+    .flow-text-desc {
+      font-family: var(--font);
+      font-size: 9px;
+      fill: var(--text2);
+    }
+
+    .flow-text-time {
+      font-family: 'DM Mono', monospace;
+      font-size: 9.5px;
+      font-weight: 700;
+    }
+
+    .flow-column.bad .flow-text-time {
+      fill: var(--danger);
+    }
+
+    .flow-column.good .flow-text-time {
+      fill: var(--success);
+    }
+
+    .total-time-badge {
+      margin-top: 14px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 10px rgba(30, 45, 61, 0.05);
+    }
+
+    .flow-column.bad .total-time-badge {
+      background: var(--danger-bg);
+      color: var(--danger);
+      border: 1px solid rgba(179, 38, 30, 0.15);
+    }
+
+    .flow-column.good .total-time-badge {
+      background: var(--success-bg);
+      color: var(--success);
+      border: 1px solid rgba(26, 110, 60, 0.15);
+    }
+
+    /* bar chart */
+    .barchart {
+      margin-top: 18px;
+    }
+
+    .barchart .row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .barchart .name {
+      width: 60px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text2);
+      text-align: right;
+    }
+
+    .barchart .track {
+      flex: 1;
+    }
+
+    .barchart .val {
+      font-family: 'DM Mono', monospace;
+      font-size: 15px;
+      font-weight: 600;
+      width: 70px;
+    }
+
+    .hero-stat {
+      text-align: center;
+      margin-top: 22px;
+    }
+
+    .hero-stat .value {
+      font-family: 'DM Mono', monospace;
+      font-weight: 600;
+      font-size: 46px;
+      color: var(--navy2);
+    }
+
+    .hero-stat .label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .assumptions {
+      margin-top: 18px;
+      padding: 9px 14px;
+      border-left: 3px solid var(--gold);
+      background: #fbf7ec;
+      border-radius: 0 8px 8px 0;
+      font-size: 10.5px;
+      color: var(--text2);
+    }
+
+    .two-money {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .money-card {
+      background: var(--bg);
+      border-radius: 14px;
+      padding: 24px 22px;
+      border: 1px solid #e2e6ec;
+      text-align: center;
+      box-shadow: 0 6px 16px rgba(30, 45, 61, .07);
+    }
+
+    .money-card .icon {
+      margin: 0 auto 10px;
+    }
+
+    .money-card h4 {
+      margin: 0 0 4px;
+      font-size: 13px;
+      color: var(--navy2);
+      font-weight: 700;
+    }
+
+    .money-card .amount {
+      font-family: 'DM Mono', monospace;
+      font-size: 26px;
+      color: var(--gold2);
+      font-weight: 600;
+    }
+
+    .money-card p {
+      font-size: 11px;
+      margin-top: 8px;
+    }
+
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 0;
+      }
+
+      body {
+        background: #fff;
+      }
+
+      .slide {
+        margin: 0;
+        box-shadow: none;
+        page-break-after: always;
+        width: auto;
+        min-height: 100vh;
+      }
+
+      .slide:last-child {
+        page-break-after: auto;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ============ SPRITE DE ÍCONOS (no se muestra) ============ -->
-<svg style="position:absolute; width:0; height:0; overflow:hidden;" aria-hidden="true">
-<defs>
+  <!-- ============ SPRITE DE ÍCONOS (no se muestra) ============ -->
+  <svg style="position:absolute; width:0; height:0; overflow:hidden;" aria-hidden="true">
+    <defs>
 
-<symbol id="i-table" viewBox="0 0 24 24">
-  <rect x="3" y="4" width="18" height="16" rx="2"/>
-  <line x1="3" y1="10" x2="21" y2="10"/><line x1="3" y1="16" x2="21" y2="16"/>
-  <line x1="9" y1="4" x2="9" y2="20"/><line x1="15" y1="4" x2="15" y2="20"/>
-</symbol>
+      <symbol id="i-table" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="16" rx="2" />
+        <line x1="3" y1="10" x2="21" y2="10" />
+        <line x1="3" y1="16" x2="21" y2="16" />
+        <line x1="9" y1="4" x2="9" y2="20" />
+        <line x1="15" y1="4" x2="15" y2="20" />
+      </symbol>
 
-<symbol id="i-folder-alert" viewBox="0 0 24 24">
-  <path d="M3 7a2 2 0 0 1 2-2h4.2l1.8 2H19a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/>
-  <line x1="12" y1="11" x2="12" y2="14.3"/>
-  <circle cx="12" cy="17" r="0.7" fill="currentColor" stroke="none"/>
-</symbol>
+      <symbol id="i-folder-alert" viewBox="0 0 24 24">
+        <path d="M3 7a2 2 0 0 1 2-2h4.2l1.8 2H19a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z" />
+        <line x1="12" y1="11" x2="12" y2="14.3" />
+        <circle cx="12" cy="17" r="0.7" fill="currentColor" stroke="none" />
+      </symbol>
 
-<symbol id="i-search" viewBox="0 0 24 24">
-  <circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.3" y1="15.3" x2="21" y2="21"/>
-</symbol>
+      <symbol id="i-search" viewBox="0 0 24 24">
+        <circle cx="10.5" cy="10.5" r="6.5" />
+        <line x1="15.3" y1="15.3" x2="21" y2="21" />
+      </symbol>
 
-<symbol id="i-bell-off" viewBox="0 0 24 24">
-  <path d="M6.3 6.3C6.1 6.8 6 7.4 6 8c0 7-3 9-3 9h13"/>
-  <path d="M18 8a6 6 0 0 0-9.9-4.6"/><path d="M18 8c0 4.5 1.5 6.9 2.4 8.1"/>
-  <path d="M13.7 21a2 2 0 0 1-3.4 0"/><line x1="3" y1="3" x2="21" y2="21"/>
-</symbol>
+      <symbol id="i-bell-off" viewBox="0 0 24 24">
+        <path d="M6.3 6.3C6.1 6.8 6 7.4 6 8c0 7-3 9-3 9h13" />
+        <path d="M18 8a6 6 0 0 0-9.9-4.6" />
+        <path d="M18 8c0 4.5 1.5 6.9 2.4 8.1" />
+        <path d="M13.7 21a2 2 0 0 1-3.4 0" />
+        <line x1="3" y1="3" x2="21" y2="21" />
+      </symbol>
 
-<symbol id="i-bell" viewBox="0 0 24 24">
-  <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9z"/>
-  <path d="M13.7 21a2 2 0 0 1-3.4 0"/>
-</symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24">
+        <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9z" />
+        <path d="M13.7 21a2 2 0 0 1-3.4 0" />
+      </symbol>
 
-<symbol id="i-service-bell" viewBox="0 0 24 24">
-  <path d="M3 16a9 4.6 0 0 1 18 0"/><line x1="2" y1="16" x2="22" y2="16"/>
-  <line x1="12" y1="7" x2="12" y2="4.6"/><circle cx="12" cy="3.4" r="1.1" fill="currentColor" stroke="none"/>
-</symbol>
+      <symbol id="i-service-bell" viewBox="0 0 24 24">
+        <path d="M3 16a9 4.6 0 0 1 18 0" />
+        <line x1="2" y1="16" x2="22" y2="16" />
+        <line x1="12" y1="7" x2="12" y2="4.6" />
+        <circle cx="12" cy="3.4" r="1.1" fill="currentColor" stroke="none" />
+      </symbol>
 
-<symbol id="i-phone" viewBox="0 0 24 24">
-  <path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1.1-.2c1.2.5 2.5.8 3.9.8a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1C12.4 22 2 11.6 2 5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.4.3 2.7.8 3.9a1 1 0 0 1-.2 1.1L6.6 10.8z"/>
-</symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24">
+        <path
+          d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1.1-.2c1.2.5 2.5.8 3.9.8a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1C12.4 22 2 11.6 2 5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.4.3 2.7.8 3.9a1 1 0 0 1-.2 1.1L6.6 10.8z" />
+      </symbol>
 
-<symbol id="i-file-doc" viewBox="0 0 24 24">
-  <path d="M6.5 3h7l4 4v13a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>
-  <path d="M13.5 3v4h4"/>
-  <line x1="8.5" y1="11" x2="15" y2="11"/><line x1="8.5" y1="14" x2="15" y2="14"/><line x1="8.5" y1="17" x2="12.5" y2="17"/>
-</symbol>
+      <symbol id="i-file-doc" viewBox="0 0 24 24">
+        <path d="M6.5 3h7l4 4v13a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" />
+        <path d="M13.5 3v4h4" />
+        <line x1="8.5" y1="11" x2="15" y2="11" />
+        <line x1="8.5" y1="14" x2="15" y2="14" />
+        <line x1="8.5" y1="17" x2="12.5" y2="17" />
+      </symbol>
 
-<symbol id="i-building" viewBox="0 0 24 24">
-  <rect x="4" y="3" width="16" height="18" rx="1"/>
-  <line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="14" x2="20" y2="14"/>
-  <line x1="9" y1="21" x2="9" y2="3"/><line x1="15" y1="21" x2="15" y2="3"/>
-</symbol>
+      <symbol id="i-building" viewBox="0 0 24 24">
+        <rect x="4" y="3" width="16" height="18" rx="1" />
+        <line x1="4" y1="9" x2="20" y2="9" />
+        <line x1="4" y1="14" x2="20" y2="14" />
+        <line x1="9" y1="21" x2="9" y2="3" />
+        <line x1="15" y1="21" x2="15" y2="3" />
+      </symbol>
 
-<symbol id="i-hotel" viewBox="0 0 24 24">
-  <path d="M3 11 12 4 21 11"/><path d="M5 11v9h14v-9"/><rect x="10.3" y="15" width="3.4" height="5"/>
-</symbol>
+      <symbol id="i-hotel" viewBox="0 0 24 24">
+        <path d="M3 11 12 4 21 11" />
+        <path d="M5 11v9h14v-9" />
+        <rect x="10.3" y="15" width="3.4" height="5" />
+      </symbol>
 
-<symbol id="i-database" viewBox="0 0 24 24">
-  <ellipse cx="12" cy="5.5" rx="8" ry="3"/>
-  <path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13"/>
-  <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>
-</symbol>
+      <symbol id="i-database" viewBox="0 0 24 24">
+        <ellipse cx="12" cy="5.5" rx="8" ry="3" />
+        <path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13" />
+        <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" />
+      </symbol>
 
-<symbol id="i-link2" viewBox="0 0 24 24">
-  <path d="M9.5 14.5a4.5 4.5 0 0 0 6.4 0l2-2a4.5 4.5 0 0 0-6.4-6.4l-1.1 1.1"/>
-  <path d="M14.5 9.5a4.5 4.5 0 0 0-6.4 0l-2 2a4.5 4.5 0 0 0 6.4 6.4l1.1-1.1"/>
-</symbol>
+      <symbol id="i-link2" viewBox="0 0 24 24">
+        <path d="M9.5 14.5a4.5 4.5 0 0 0 6.4 0l2-2a4.5 4.5 0 0 0-6.4-6.4l-1.1 1.1" />
+        <path d="M14.5 9.5a4.5 4.5 0 0 0-6.4 0l-2 2a4.5 4.5 0 0 0 6.4 6.4l1.1-1.1" />
+      </symbol>
 
-<symbol id="i-briefcase" viewBox="0 0 24 24">
-  <rect x="3" y="8" width="18" height="12" rx="2"/>
-  <path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><line x1="3" y1="13.5" x2="21" y2="13.5"/>
-</symbol>
+      <symbol id="i-briefcase" viewBox="0 0 24 24">
+        <rect x="3" y="8" width="18" height="12" rx="2" />
+        <path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+        <line x1="3" y1="13.5" x2="21" y2="13.5" />
+      </symbol>
 
-<symbol id="i-paperclip" viewBox="0 0 24 24">
-  <path d="M8 12.5l6.5-6.5a3 3 0 1 1 4.2 4.2l-8.4 8.4a5 5 0 1 1-7-7l7.6-7.6"/>
-</symbol>
+      <symbol id="i-paperclip" viewBox="0 0 24 24">
+        <path d="M8 12.5l6.5-6.5a3 3 0 1 1 4.2 4.2l-8.4 8.4a5 5 0 1 1-7-7l7.6-7.6" />
+      </symbol>
 
-<symbol id="i-cpu" viewBox="0 0 24 24">
-  <rect x="7" y="7" width="10" height="10" rx="1"/><rect x="10" y="10" width="4" height="4"/>
-  <line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/>
-  <line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/>
-</symbol>
+      <symbol id="i-cpu" viewBox="0 0 24 24">
+        <rect x="7" y="7" width="10" height="10" rx="1" />
+        <rect x="10" y="10" width="4" height="4" />
+        <line x1="12" y1="2" x2="12" y2="6" />
+        <line x1="12" y1="18" x2="12" y2="22" />
+        <line x1="2" y1="12" x2="6" y2="12" />
+        <line x1="18" y1="12" x2="22" y2="12" />
+      </symbol>
 
-<symbol id="i-save" viewBox="0 0 24 24">
-  <path d="M5 3h11l4 4v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>
-  <path d="M8 3v5h6V3"/><rect x="7" y="13" width="10" height="6"/>
-</symbol>
+      <symbol id="i-save" viewBox="0 0 24 24">
+        <path d="M5 3h11l4 4v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" />
+        <path d="M8 3v5h6V3" />
+        <rect x="7" y="13" width="10" height="6" />
+      </symbol>
 
-<symbol id="i-shield-check" viewBox="0 0 24 24">
-  <path d="M12 3l7 3v6c0 5-3.3 7.8-7 9-3.7-1.2-7-4-7-9V6l7-3z"/>
-  <path d="M9 12l2.2 2.2L15.5 10"/>
-</symbol>
+      <symbol id="i-shield-check" viewBox="0 0 24 24">
+        <path d="M12 3l7 3v6c0 5-3.3 7.8-7 9-3.7-1.2-7-4-7-9V6l7-3z" />
+        <path d="M9 12l2.2 2.2L15.5 10" />
+      </symbol>
 
-<symbol id="i-globe" viewBox="0 0 24 24">
-  <circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/>
-  <path d="M12 3c2.5 2.5 4 5.8 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.8-4-9s1.5-6.5 4-9z"/>
-</symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <path d="M12 3c2.5 2.5 4 5.8 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.8-4-9s1.5-6.5 4-9z" />
+      </symbol>
 
-<symbol id="i-trending-up" viewBox="0 0 24 24">
-  <polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/>
-</symbol>
+      <symbol id="i-trending-up" viewBox="0 0 24 24">
+        <polyline points="3 17 9 11 13 15 21 7" />
+        <polyline points="15 7 21 7 21 13" />
+      </symbol>
 
-<symbol id="i-zap" viewBox="0 0 24 24">
-  <path d="M13 2 4 14h6l-1 8 10-12h-6l1-8z"/>
-</symbol>
+      <symbol id="i-zap" viewBox="0 0 24 24">
+        <path d="M13 2 4 14h6l-1 8 10-12h-6l1-8z" />
+      </symbol>
 
-<symbol id="i-hourglass" viewBox="0 0 24 24">
-  <line x1="6" y1="2" x2="18" y2="2"/><line x1="6" y1="22" x2="18" y2="22"/>
-  <path d="M8 2c0 4.5 3 5.5 4 7-1 1.5-4 2.5-4 7"/><path d="M16 2c0 4.5-3 5.5-4 7 1 1.5 4 2.5 4 7"/>
-</symbol>
+      <symbol id="i-hourglass" viewBox="0 0 24 24">
+        <line x1="6" y1="2" x2="18" y2="2" />
+        <line x1="6" y1="22" x2="18" y2="22" />
+        <path d="M8 2c0 4.5 3 5.5 4 7-1 1.5-4 2.5-4 7" />
+        <path d="M16 2c0 4.5-3 5.5-4 7 1 1.5 4 2.5 4 7" />
+      </symbol>
 
-<symbol id="i-arrow-right" viewBox="0 0 24 24">
-  <line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/>
-</symbol>
+      <symbol id="i-arrow-right" viewBox="0 0 24 24">
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <polyline points="14 6 20 12 14 18" />
+      </symbol>
 
-<symbol id="i-arrow-down" viewBox="0 0 24 24">
-  <line x1="12" y1="4" x2="12" y2="20"/><polyline points="6 14 12 20 18 14"/>
-</symbol>
+      <symbol id="i-arrow-down" viewBox="0 0 24 24">
+        <line x1="12" y1="4" x2="12" y2="20" />
+        <polyline points="6 14 12 20 18 14" />
+      </symbol>
 
-</defs>
-</svg>
-<!-- ============ FIN SPRITE ============ -->
+    </defs>
+  </svg>
+  <!-- ============ FIN SPRITE ============ -->
 
   <!-- 1. PORTADA -->
   <section class="slide dark hero-bg-1">
@@ -323,15 +936,48 @@
     <h1>Así se gestionaba el crédito antes</h1>
     <div class="split">
       <div class="photo-panel tint-bad">
-        <img src="https://images.unsplash.com/photo-1753340328027-73acda445c58?auto=format&fit=crop&w=1200&q=75" alt="Escritorio de oficina con laptop, teléfono y papeles dispersos">
+        <img src="./assets/presentacion/excel-background.jpg" alt="Fondo de una hoja de calculo">
         <div class="tint"></div>
-        <div class="cap">Todo dependía de una hoja de cálculo<small>Sin base de datos ni automatización real</small></div>
+        <div class="cap">Todo dependía de una hoja de cálculo<small>Sin base de datos ni automatización real</small>
+        </div>
       </div>
       <div class="icon-grid-2">
-        <div class="icon-tile"><div class="icon-badge bad"><svg class="icon lg i-bad"><use href="#i-table"/></svg></div><div><div class="t">+10.000 filas</div><div class="d">Hoja de cálculo desbordada</div></div></div>
-        <div class="icon-tile"><div class="icon-badge bad"><svg class="icon lg i-bad"><use href="#i-folder-alert"/></svg></div><div><div class="t">Carpetas perdidas</div><div class="d">Documentos sin control</div></div></div>
-        <div class="icon-tile"><div class="icon-badge bad"><svg class="icon lg i-bad"><use href="#i-search"/></svg></div><div><div class="t">Búsquedas lentas</div><div class="d">Minutos por cada consulta</div></div></div>
-        <div class="icon-tile"><div class="icon-badge bad"><svg class="icon lg i-bad"><use href="#i-bell-off"/></svg></div><div><div class="t">Cero alertas</div><div class="d">Vencimientos sin aviso</div></div></div>
+        <div class="icon-tile">
+          <div class="icon-badge bad"><svg class="icon lg i-bad">
+              <use href="#i-table" />
+            </svg></div>
+          <div>
+            <div class="t">+10.000 filas</div>
+            <div class="d">Hoja de cálculo desbordada</div>
+          </div>
+        </div>
+        <div class="icon-tile">
+          <div class="icon-badge bad"><svg class="icon lg i-bad">
+              <use href="#i-folder-alert" />
+            </svg></div>
+          <div>
+            <div class="t">Carpetas perdidas</div>
+            <div class="d">Documentos sin control</div>
+          </div>
+        </div>
+        <div class="icon-tile">
+          <div class="icon-badge bad"><svg class="icon lg i-bad">
+              <use href="#i-search" />
+            </svg></div>
+          <div>
+            <div class="t">Búsquedas lentas</div>
+            <div class="d">Minutos por cada consulta</div>
+          </div>
+        </div>
+        <div class="icon-tile">
+          <div class="icon-badge bad"><svg class="icon lg i-bad">
+              <use href="#i-bell-off" />
+            </svg></div>
+          <div>
+            <div class="t">Cero alertas</div>
+            <div class="d">Vencimientos sin aviso</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -342,62 +988,283 @@
     <h1>Un sistema propio, de punta a punta</h1>
     <div style="display:grid; grid-template-columns: 1.1fr 1fr; gap:36px; align-items:center; margin-top:14px;">
       <div>
-        <div class="flow-row" style="justify-content:flex-start; margin-top:10px;">
-          <div class="flow-box"><svg class="icon lg i-navy"><use href="#i-file-doc"/></svg><div class="lb">Formulario</div></div>
-          <svg class="icon flow-arrow"><use href="#i-arrow-right"/></svg>
-          <div class="flow-box"><svg class="icon lg i-navy"><use href="#i-building"/></svg><div class="lb">Panel de Control</div></div>
+        <div class="puzzle-container">
+          <svg viewBox="-15 -15 430 430" width="100%" height="100%">
+            <!-- Top-Left Piece (Formulario) -->
+            <g class="puzzle-piece puzzle-piece-tl">
+              <path
+                d="M 0,24 A 24,24 0 0,1 24,0 L 200,0 L 200,75 A 12,12 0 0,0 188,85 A 18,18 0 1,0 188,115 A 12,12 0 0,0 200,125 L 200,200 L 125,200 A 12,12 0 0,1 115,212 A 18,18 0 1,1 85,212 A 12,12 0 0,1 75,200 L 0,200 Z"
+                fill="var(--bg)" stroke="#ffffff" stroke-width="5" />
+              <svg x="84" y="52" width="32" height="32" class="puzzle-icon" style="color: var(--gold2);">
+                <use href="#i-file-doc" />
+              </svg>
+              <text x="100" y="118" fill="var(--navy2)" class="puzzle-label">Formulario</text>
+            </g>
+
+            <!-- Top-Right Piece (Panel de Control) -->
+            <g class="puzzle-piece puzzle-piece-tr">
+              <path
+                d="M 200,0 L 376,0 A 24,24 0 0,1 400,24 L 400,200 L 325,200 A 12,12 0 0,1 315,188 A 18,18 0 1,1 285,188 A 12,12 0 0,1 275,200 L 200,200 L 200,125 A 12,12 0 0,1 188,115 A 18,18 0 1,1 188,85 A 12,12 0 0,1 200,75 L 200,0 Z"
+                fill="var(--bg)" stroke="#ffffff" stroke-width="5" />
+              <svg x="284" y="52" width="32" height="32" class="puzzle-icon" style="color: var(--gold2);">
+                <use href="#i-trending-up" />
+              </svg>
+              <text x="300" y="118" fill="var(--navy2)" class="puzzle-label">Panel de Control</text>
+            </g>
+
+            <!-- Bottom-Left Piece (Portal Reservas) -->
+            <g class="puzzle-piece puzzle-piece-bl">
+              <path
+                d="M 0,200 L 75,200 A 12,12 0 0,1 85,212 A 18,18 0 1,1 115,212 A 12,12 0 0,1 125,200 L 200,200 L 200,275 A 12,12 0 0,1 212,285 A 18,18 0 1,1 212,315 A 12,12 0 0,1 200,325 L 200,400 L 24,400 A 24,24 0 0,1 0,376 Z"
+                fill="var(--bg)" stroke="#ffffff" stroke-width="5" />
+              <svg x="84" y="252" width="32" height="32" class="puzzle-icon" style="color: var(--gold2);">
+                <use href="#i-globe" />
+              </svg>
+              <text x="100" y="318" fill="var(--navy2)" class="puzzle-label">Portal Reservas</text>
+            </g>
+
+            <!-- Bottom-Right Piece (Base de Datos) -->
+            <g class="puzzle-piece puzzle-piece-br">
+              <path
+                d="M 200,200 L 275,200 A 12,12 0 0,1 285,188 A 18,18 0 1,1 315,188 A 12,12 0 0,1 325,200 L 400,200 L 400,376 A 24,24 0 0,1 376,400 L 200,400 L 200,325 A 12,12 0 0,1 212,315 A 18,18 0 1,1 212,285 A 12,12 0 0,1 200,275 L 200,200 Z"
+                fill="var(--bg)" stroke="#ffffff" stroke-width="5" />
+              <svg x="284" y="252" width="32" height="32" class="puzzle-icon" style="color: var(--gold2);">
+                <use href="#i-database" />
+              </svg>
+              <text x="300" y="318" fill="var(--navy2)" class="puzzle-label">Base de Datos</text>
+            </g>
+          </svg>
         </div>
-        <div class="flow-row" style="justify-content:flex-start; margin-top:14px;">
-          <svg class="icon flow-arrow"><use href="#i-arrow-right"/></svg>
-          <div class="flow-box"><svg class="icon lg i-navy"><use href="#i-service-bell"/></svg><div class="lb">Portal Reservas</div></div>
-          <svg class="icon flow-arrow"><use href="#i-arrow-right"/></svg>
-          <div class="flow-box"><svg class="icon lg i-navy"><use href="#i-database"/></svg><div class="lb">Base de datos · 21 tablas</div></div>
-        </div>
-        <p style="margin-top:22px;">Documentos, correos, auditoría y respaldos <strong>100% automáticos</strong>. IA integrada para revisar cada expediente antes de aprobar.</p>
+        <p style="margin-top:22px;">Documentos, correos, auditoría y respaldos <strong>100% automáticos</strong>. IA
+          integrada para revisar cada expediente antes de aprobar.</p>
       </div>
       <div class="browser-mock">
-        <div class="bar"><span></span><span></span><span></span><span class="url">panel-control.oxohotel.internal</span></div>
+        <div class="bar"><span></span><span></span><span></span><span class="url">panel-control.oxohotel.internal</span>
+        </div>
         <img src="assets/credito-cartera/dashboard_inicial.png" alt="Dashboard real del Panel de Control">
       </div>
     </div>
   </section>
 
-  <!-- 4. EL SISTEMA HOY EN NÚMEROS -->
+  <!-- 4. EL PROCESO ANTERIOR -->
   <section class="slide center">
-    <span class="kicker">El sistema hoy</span>
-    <h1>Números reales de la base de datos</h1>
-    <div class="stat-grid">
-      <div class="stat-tile"><svg class="icon i-navy"><use href="#i-file-doc"/></svg><span class="num">~380</span><span class="lbl">Solicitudes gestionadas</span></div>
-      <div class="stat-tile"><svg class="icon i-navy"><use href="#i-link2"/></svg><span class="num">~4.600</span><span class="lbl">Créditos por hotel organizados</span></div>
-      <div class="stat-tile"><svg class="icon i-navy"><use href="#i-briefcase"/></svg><span class="num">~380</span><span class="lbl">Empresas registradas</span></div>
-      <div class="stat-tile"><svg class="icon i-navy"><use href="#i-hotel"/></svg><span class="num">31</span><span class="lbl">Hoteles integrados</span></div>
-      <div class="stat-tile"><svg class="icon i-navy"><use href="#i-paperclip"/></svg><span class="num">210+</span><span class="lbl">Documentos digitalizados</span></div>
-      <div class="stat-tile"><svg class="icon i-navy"><use href="#i-cpu"/></svg><span class="num">51</span><span class="lbl">Auditorías con IA</span></div>
-      <div class="stat-tile"><svg class="icon i-navy"><use href="#i-save"/></svg><span class="num">13</span><span class="lbl">Copias de seguridad</span></div>
-      <div class="stat-tile"><svg class="icon i-navy"><use href="#i-database"/></svg><span class="num">21</span><span class="lbl">Tablas relacionadas</span></div>
+    <span class="kicker">Comparación directa · Antes</span>
+    <h1>El Proceso Anterior: Manual y Lento</h1>
+
+    <div style="display:grid; grid-template-columns: 1.65fr 1fr; gap:24px; align-items:start; margin-top:5px;">
+      <!-- Flowchart SVG -->
+      <div class="flow-column bad">
+        <svg viewBox="0 25 440 250" width="100%">
+          <!-- Markers -->
+          <defs>
+            <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6"
+              orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#b3261e" />
+            </marker>
+          </defs>
+
+          <!-- 1. Inicio -->
+          <rect x="15" y="42.5" width="50" height="25" rx="12.5" ry="12.5" fill="var(--danger-bg)" stroke="#b3261e"
+            stroke-width="1.5" />
+          <text x="40" y="58.5" text-anchor="middle" font-family="var(--font)" font-size="9.5" font-weight="800"
+            fill="#b3261e">INICIO</text>
+
+          <!-- 2. Enviar y Llenar Formato -->
+          <rect x="80" y="35" width="110" height="40" rx="6" fill="#fff" stroke="#f5d6d3" stroke-width="1.5" />
+          <text x="135" y="50" text-anchor="middle" font-family="var(--font)" font-size="8.5" font-weight="800"
+            fill="var(--text)">1. Enviar Soportes</text>
+          <text x="135" y="64" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" font-weight="700"
+            fill="#b3261e">⏱ Horas o Días</text>
+
+          <!-- 3. Evaluar Soportes -->
+          <rect x="205" y="35" width="110" height="40" rx="6" fill="#fff" stroke="#f5d6d3" stroke-width="1.5" />
+          <text x="260" y="50" text-anchor="middle" font-family="var(--font)" font-size="8.5" font-weight="800"
+            fill="var(--text)">2. Validar Requisitos</text>
+          <text x="260" y="64" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" font-weight="700"
+            fill="#b3261e">⏱ 45 min (5 archs)</text>
+
+          <!-- 4. Decisión Diamond -->
+          <polygon points="360,35 390,55 360,75 330,55" fill="var(--danger-bg)" stroke="#b3261e" stroke-width="1.5" />
+          <text x="360" y="58" text-anchor="middle" font-family="var(--font)" font-size="7.5" font-weight="800"
+            fill="var(--text)">¿Completo?</text>
+
+          <!-- Reclamar por Correo -->
+          <rect x="305" y="105" width="110" height="32" rx="6" fill="#fff" stroke="#f5d6d3" stroke-width="1.5" />
+          <text x="360" y="118" text-anchor="middle" font-family="var(--font)" font-size="8.5" font-weight="700"
+            fill="var(--text)">Reclamar por Correo</text>
+          <text x="360" y="128" text-anchor="middle" font-family="var(--font)" font-size="7.5"
+            fill="var(--text2)">Reenviar correcciones</text>
+
+          <!-- 5. Creación PMS -->
+          <rect x="15" y="185" width="110" height="40" rx="6" fill="#fff" stroke="#f5d6d3" stroke-width="1.5" />
+          <text x="70" y="200" text-anchor="middle" font-family="var(--font)" font-size="8.5" font-weight="800"
+            fill="var(--text)">3. Enviar Aprobación</text>
+          <text x="70" y="214" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" font-weight="700"
+            fill="#b3261e">⏱ 15 min (manual)</text>
+
+          <!-- 6. Enviar Aprobación -->
+          <rect x="140" y="185" width="110" height="40" rx="6" fill="#fff" stroke="#f5d6d3" stroke-width="1.5" />
+          <text x="195" y="200" text-anchor="middle" font-family="var(--font)" font-size="8.5" font-weight="800"
+            fill="var(--text)">4. Crear PMS Hoteles</text>
+          <text x="195" y="214" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" font-weight="700"
+            fill="#b3261e">⏱ ~1 día (espera)</text>
+
+          <!-- Fin -->
+          <rect x="265" y="192.5" width="50" height="25" rx="12.5" ry="12.5" fill="var(--danger-bg)" stroke="#b3261e"
+            stroke-width="1.5" />
+          <text x="290" y="208.5" text-anchor="middle" font-family="var(--font)" font-size="9.5" font-weight="800"
+            fill="#b3261e">FIN</text>
+
+          <!-- Paths/Connections -->
+          <path d="M 65,55 L 76,55" stroke="#b3261e" stroke-width="1.5" fill="none" marker-end="url(#arrow-red)" />
+          <path d="M 190,55 L 201,55" stroke="#b3261e" stroke-width="1.5" fill="none" marker-end="url(#arrow-red)" />
+          <path d="M 315,55 L 326,55" stroke="#b3261e" stroke-width="1.5" fill="none" marker-end="url(#arrow-red)" />
+          <path d="M 360,75 L 360,101" stroke="#b3261e" stroke-width="1.5" fill="none" marker-end="url(#arrow-red)" />
+          <path d="M 360,137 L 360,152 L 135,152 L 135,79" stroke="#b3261e" stroke-width="1.5" fill="none"
+            marker-end="url(#arrow-red)" />
+          <path d="M 390,55 L 425,55 L 425,168 L 70,168 L 70,181" stroke="#b3261e" stroke-width="1.5" fill="none"
+            marker-end="url(#arrow-red)" />
+          <path d="M 125,205 L 136,205" stroke="#b3261e" stroke-width="1.5" fill="none" marker-end="url(#arrow-red)" />
+          <path d="M 250,205 L 261,205" stroke="#b3261e" stroke-width="1.5" fill="none" marker-end="url(#arrow-red)" />
+        </svg>
+      </div>
+
+      <!-- Friction points and timing -->
+      <div>
+        <div
+          style="background:var(--danger-bg); border:1px solid #f5d6d3; padding:12px 16px; border-radius:14px; box-shadow: 0 4px 10px rgba(0,0,0,0.02);">
+          <h3 style="color:var(--danger); margin-top:0; font-size:15px; display:flex; align-items:center; gap:8px;">
+            ⚠️ Fricciones del Proceso Manual
+          </h3>
+          <ul style="margin:8px 0 0 0; padding-left:18px; font-size:12.5px; line-height:1.45; color:var(--text2);">
+            <li style="margin-bottom:6px;"><strong>Dependencia de correos:</strong> Todo el flujo vive en bandejas de
+              entrada, facilitando la pérdida de documentos.</li>
+            <li style="margin-bottom:6px;"><strong>Cuellos de botella externos:</strong> Depende de la velocidad de
+              respuesta del cliente y del equipo del hotel para la creación de perfiles.</li>
+            <li style="margin-bottom:6px;"><strong>Bucle de correcciones:</strong> Si falta un anexo o está vencido, se
+              debe reiniciar la espera.</li>
+            <li style="margin-bottom:6px;"><strong>Carga administrativa:</strong> ~2 horas de trabajo manual activo por
+              cada crédito.</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <p style="text-align:center; margin-top:20px; font-size:12px; color:var(--muted);">Todo esto en apenas <strong>~6 semanas</strong> de uso por el equipo de Cartera.</p>
   </section>
 
-  <!-- 5. ANTES VS DESPUÉS -->
+  <!-- 5. EL PROCESO ACTUAL -->
   <section class="slide center">
-    <span class="kicker">Comparación directa</span>
-    <h1>Antes vs. Después</h1>
-    <div class="col-heads">
-      <span class="kicker" style="background:var(--danger-bg); color:var(--danger); border-color:#f3c9c5;">ANTES</span>
-      <span class="kicker" style="background:var(--success-bg); color:var(--success); border-color:#bfe3cd;">AHORA</span>
-    </div>
-    <div class="checklist-grid">
-      <div class="check-row bad"><svg class="icon sm i-bad"><use href="#i-table"/></svg><span class="tx">Hoja de +10.000 filas</span></div>
-      <div class="check-row good"><svg class="icon sm i-good"><use href="#i-database"/></svg><span class="tx">Base de datos relacional</span></div>
-      <div class="check-row bad"><svg class="icon sm i-bad"><use href="#i-folder-alert"/></svg><span class="tx">Carpetas dispersas o perdidas</span></div>
-      <div class="check-row good"><svg class="icon sm i-good"><use href="#i-paperclip"/></svg><span class="tx">Un expediente por solicitud</span></div>
-      <div class="check-row bad"><svg class="icon sm i-bad"><use href="#i-search"/></svg><span class="tx">Buscar historial: minutos</span></div>
-      <div class="check-row good"><svg class="icon sm i-good"><use href="#i-zap"/></svg><span class="tx">Buscar historial: segundos</span></div>
-      <div class="check-row bad"><svg class="icon sm i-bad"><use href="#i-bell-off"/></svg><span class="tx">Sin alertas de vencimiento</span></div>
-      <div class="check-row good"><svg class="icon sm i-good"><use href="#i-bell"/></svg><span class="tx">Alertas automáticas</span></div>
-      <div class="check-row bad"><svg class="icon sm i-bad"><use href="#i-phone"/></svg><span class="tx">Reservas llamaba a Cartera</span></div>
-      <div class="check-row good"><svg class="icon sm i-good"><use href="#i-globe"/></svg><span class="tx">Portal de consulta 24/7</span></div>
+    <span class="kicker">Comparación directa · Ahora</span>
+    <h1>El Proceso Actual: Automatizado y Eficiente</h1>
+
+    <div style="display:grid; grid-template-columns: 1.65fr 1fr; gap:24px; align-items:start; margin-top:5px;">
+      <!-- Flowchart SVG -->
+      <div class="flow-column good">
+        <svg viewBox="0 25 440 250" width="100%">
+          <!-- Markers -->
+          <defs>
+            <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6"
+              orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a6e3c" />
+            </marker>
+          </defs>
+
+          <!-- 1. Inicio -->
+          <rect x="15" y="42.5" width="50" height="25" rx="12.5" ry="12.5" fill="var(--success-bg)" stroke="#1a6e3c"
+            stroke-width="1.5" />
+          <text x="40" y="58.5" text-anchor="middle" font-family="var(--font)" font-size="9.5" font-weight="800"
+            fill="#1a6e3c">INICIO</text>
+
+          <!-- 2. Diligenciar Formulario -->
+          <rect x="80" y="35" width="110" height="40" rx="6" fill="#fff" stroke="#dbece0" stroke-width="1.5" />
+          <text x="135" y="50" text-anchor="middle" font-family="var(--font)" font-size="8.5" font-weight="800"
+            fill="var(--text)">1. Formulario Web</text>
+          <text x="135" y="64" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" font-weight="700"
+            fill="#1a6e3c">⏱ 3 - 5 min</text>
+
+          <!-- 3. Envío y Auditoría IA -->
+          <rect x="205" y="35" width="110" height="40" rx="6" fill="#fff" stroke="#dbece0" stroke-width="1.5" />
+          <text x="260" y="50" text-anchor="middle" font-family="var(--font)" font-size="8.5" font-weight="800"
+            fill="var(--text)">2. Auditoría IA</text>
+          <text x="260" y="64" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" font-weight="700"
+            fill="#1a6e3c">⏱ 30s - 1 min</text>
+
+          <!-- 4. Decisión Diamond -->
+          <polygon points="360,35 390,55 360,75 330,55" fill="var(--success-bg)" stroke="#1a6e3c" stroke-width="1.5" />
+          <text x="360" y="58" text-anchor="middle" font-family="var(--font)" font-size="7.5" font-weight="800"
+            fill="var(--text)">¿Soportes OK?</text>
+
+          <!-- Solicitar Ajustes -->
+          <rect x="305" y="105" width="110" height="32" rx="6" fill="#fff" stroke="#dbece0" stroke-width="1.5" />
+          <text x="360" y="118" text-anchor="middle" font-family="var(--font)" font-size="8.5" font-weight="700"
+            fill="var(--text)">Solicitar Ajustes</text>
+          <text x="360" y="128" text-anchor="middle" font-family="var(--font)" font-size="7.5"
+            fill="var(--text2)">Reenvío / Corrección</text>
+
+          <!-- Row 2 -->
+          <!-- Parallel Left: Asignar Cupos -->
+          <rect x="20" y="185" width="100" height="40" rx="6" fill="#fff" stroke="#dbece0" stroke-width="1.5" />
+          <text x="70" y="198" text-anchor="middle" font-family="var(--font)" font-size="8.5" font-weight="800"
+            fill="var(--text)">3. Cupos (Cartera)</text>
+          <text x="70" y="207" text-anchor="middle" font-family="var(--font)" font-size="7" fill="var(--text2)">Analista
+            asigna montos</text>
+          <text x="70" y="218" text-anchor="middle" font-family="'DM Mono', monospace" font-size="7.5" font-weight="700"
+            fill="#1a6e3c">⏱ 5 min</text>
+
+          <!-- Parallel Right: Registro PMS -->
+          <rect x="135" y="185" width="100" height="40" rx="6" fill="#fff" stroke="#dbece0" stroke-width="1.5" />
+          <text x="185" y="198" text-anchor="middle" font-family="var(--font)" font-size="8.5" font-weight="800"
+            fill="var(--text)">4. Aprobación</text>
+          <text x="185" y="214" text-anchor="middle" font-family="'DM Mono', monospace" font-size="7.5"
+            font-weight="700" fill="#1a6e3c">⏱ 1 min (correo auto)</text>
+
+          <!-- 4. Aprobación Final -->
+          <rect x="250" y="185" width="110" height="40" rx="6" fill="#fff" stroke="#dbece0" stroke-width="1.5" />
+          <text x="305" y="200" text-anchor="middle" font-family="var(--font)" font-size="8.5" font-weight="800"
+            fill="var(--text)">5. PMS (Reservas)</text>
+          <text x="305" y="214" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" font-weight="700"
+            fill="#1a6e3c">⏱ 5 min</text>
+
+          <!-- Fin -->
+          <rect x="375" y="192.5" width="50" height="25" rx="12.5" ry="12.5" fill="var(--success-bg)" stroke="#1a6e3c"
+            stroke-width="1.5" />
+          <text x="400" y="208.5" text-anchor="middle" font-family="var(--font)" font-size="9.5" font-weight="800"
+            fill="#1a6e3c">FIN</text>
+
+          <!-- Paths/Connections -->
+          <path d="M 65,55 L 76,55" stroke="#1a6e3c" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)" />
+          <path d="M 190,55 L 201,55" stroke="#1a6e3c" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)" />
+          <path d="M 315,55 L 326,55" stroke="#1a6e3c" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)" />
+          <path d="M 360,75 L 360,101" stroke="#1a6e3c" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)" />
+          <path d="M 305,121 L 135,121 L 135,81" stroke="#1a6e3c" stroke-width="1.5" fill="none"
+            marker-end="url(#arrow-green)" />
+          <path d="M 390,55 L 425,55 L 425,165 L 70,165 L 70,181 M 185,165 L 185,181" stroke="#1a6e3c"
+            stroke-width="1.5" fill="none" marker-end="url(#arrow-green)" />
+          <path d="M 70,225 L 70,236 L 240,236 M 185,225 L 185,236 L 240,236 M 240,236 L 240,205 L 246,205"
+            stroke="#1a6e3c" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)" />
+          <path d="M 360,205 L 371,205" stroke="#1a6e3c" stroke-width="1.5" fill="none"
+            marker-end="url(#arrow-green)" />
+        </svg>
+      </div>
+
+      <!-- Automated benefits and timing -->
+      <div>
+        <div
+          style="background:var(--success-bg); border:1px solid #dbece0; padding:12px 16px; border-radius:14px; box-shadow: 0 4px 10px rgba(0,0,0,0.02);">
+          <h3 style="color:var(--success); margin-top:0; font-size:15px; display:flex; align-items:center; gap:8px;">
+            ✨ Beneficios del Proceso Digital
+          </h3>
+          <ul style="margin:8px 0 0 0; padding-left:18px; font-size:12.5px; line-height:1.45; color:var(--text2);">
+            <li style="margin-bottom:6px;"><strong>Autoservicio y base de datos:</strong> El cliente ingresa los datos
+              directamente, eliminando transcripción de datos manual.</li>
+            <li style="margin-bottom:6px;"><strong>Auditoría con IA:</strong> Los documentos se analizan y organizan en
+              segundos, alertando sobre fechas y consistencia.</li>
+            <li style="margin-bottom:6px;"><strong>Coordinación en paralelo:</strong> Reservas crea perfiles PMS y
+              Cartera asigna montos de forma concurrente.</li>
+            <li style="margin-bottom:6px;"><strong>Notificaciones inmediatas:</strong> Aprobación final y correos
+              automatizados en 2 clics.</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -405,33 +1272,83 @@
   <section class="slide center">
     <span class="kicker">Impacto · Tiempo</span>
     <h1>Minutos administrativos por solicitud</h1>
-    <div class="split" style="margin-top:10px;">
+    <div class="split" style="margin-top:10px; align-items:start;">
       <div>
-        <div class="barchart">
-          <div class="row">
-            <span class="name" style="color:var(--data-antes);">Antes</span>
-            <span class="track"><svg viewBox="0 0 480 28" width="100%" height="28"><rect x="0" y="0" width="480" height="28" rx="14" fill="#e34948"/></svg></span>
-            <span class="val" style="color:var(--data-antes);">115 min</span>
+        <!-- Tarjetas Comparativas HTML de Alto Nivel -->
+        <div
+          style="display:flex; align-items:center; justify-content:space-between; gap:16px; width:100%; margin-bottom:14px; box-sizing:border-box;">
+          <!-- Tarjeta Antes (Roja) -->
+          <div
+            style="flex:1; background:#fffcfc; border:1.5px solid #fee2e2; border-radius:16px; padding:16px 20px; box-shadow: 0 4px 12px rgba(22,38,38,0.02); display:flex; flex-direction:column; gap:12px; min-height:140px; box-sizing:border-box;">
+            <div
+              style="align-self:flex-start; background:#ef4444; color:#fff; font-size:9px; font-weight:900; padding:3px 8px; border-radius:10px; letter-spacing:0.5px;">
+              ANTES</div>
+            <div>
+              <div
+                style="font-size:10px; font-weight:700; color:var(--text2); text-transform:uppercase; letter-spacing:0.3px;">
+                Trabajo Activo</div>
+              <div style="font-size:16px; font-weight:800; color:#dc2626; margin-top:2px;">⏱ 60 min</div>
+            </div>
+            <div style="border-top:1px dashed #fee2e2; padding-top:8px;">
+              <div
+                style="font-size:10px; font-weight:700; color:var(--text2); text-transform:uppercase; letter-spacing:0.3px;">
+                Espera Cliente</div>
+              <div style="font-size:16px; font-weight:800; color:#dc2626; margin-top:2px;">📅 2 - 5 días</div>
+            </div>
           </div>
-          <div class="row">
-            <span class="name" style="color:var(--data-ahora);">Ahora</span>
-            <span class="track"><svg viewBox="0 0 480 28" width="100%" height="28"><rect x="0" y="0" width="92" height="28" rx="14" fill="#2a78d6"/></svg></span>
-            <span class="val" style="color:var(--data-ahora);">22 min</span>
+
+          <!-- Columna de Transición (Flechas y Porcentaje) -->
+          <div
+            style="display:flex; flex-direction:column; align-items:center; gap:12px; width:90px; text-align:center; flex-shrink:0; box-sizing:border-box;">
+            <span
+              style="background:#e6fffa; color:#008080; border:1px solid #b2f5ea; font-size:9.5px; font-weight:900; padding:4px 8px; border-radius:12px; white-space:nowrap; box-shadow:0 2px 5px rgba(0,0,0,0.02);">-81%
+              esfuerzo</span>
+
+            <svg width="60" height="14" viewBox="0 0 60 14" fill="none" style="display:block;">
+              <path d="M 0,7 L 54,7" stroke="#718096" stroke-width="2" stroke-dasharray="3 3" />
+              <path d="M 50,2 L 57,7 L 50,12" stroke="#718096" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+
+            <span
+              style="background:#e6fffa; color:#008080; border:1px solid #b2f5ea; font-size:9.5px; font-weight:900; padding:4px 8px; border-radius:12px; white-space:nowrap; box-shadow:0 2px 5px rgba(0,0,0,0.02);">-75%
+              espera</span>
+          </div>
+
+          <!-- Tarjeta Ahora (Verde) -->
+          <div
+            style="flex:1; background:#f6fff8; border:1.5px solid #dcfce7; border-radius:16px; padding:16px 20px; box-shadow: 0 4px 12px rgba(22,163,74,0.02); display:flex; flex-direction:column; gap:12px; min-height:140px; box-sizing:border-box;">
+            <div
+              style="align-self:flex-start; background:#16a34a; color:#fff; font-size:9px; font-weight:900; padding:3px 8px; border-radius:10px; letter-spacing:0.5px;">
+              AHORA</div>
+            <div>
+              <div
+                style="font-size:10px; font-weight:700; color:var(--text2); text-transform:uppercase; letter-spacing:0.3px;">
+                Trabajo Activo</div>
+              <div style="font-size:16px; font-weight:800; color:#16a34a; margin-top:2px;">⏱ 11 min</div>
+            </div>
+            <div style="border-top:1px dashed #dcfce7; padding-top:8px;">
+              <div
+                style="font-size:10px; font-weight:700; color:var(--text2); text-transform:uppercase; letter-spacing:0.3px;">
+                Espera Cliente</div>
+              <div style="font-size:16px; font-weight:800; color:#16a34a; margin-top:2px;">📅 24 horas</div>
+            </div>
           </div>
         </div>
-        <div class="hero-stat" style="text-align:left;">
-          <div class="value">~1.000 horas / año</div>
-          <div class="label">de tiempo administrativo recuperado para el equipo</div>
+        <div class="hero-stat" style="text-align:center; margin-top:55px;">
+          <div class="value" style="font-size:28px;">~490 horas recuperadas / año</div>
+          <div class="label" style="font-size:12px;">de tiempo administrativo para el equipo</div>
         </div>
       </div>
       <div class="photo-panel tint-navy">
-        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=75" alt="Panel de análisis de datos en pantalla de laptop">
+        <img src="./assets/presentacion/people-on-group.jfif" alt="Personas en grupo analizando">
         <div class="tint"></div>
         <div class="cap">Más tiempo para análisis<small>Menos tiempo en tareas operativas repetitivas</small></div>
       </div>
     </div>
     <div class="assumptions">
-      Estimación conservadora: ~90 min ahorrados/solicitud × ~50 solicitudes/mes, más el tiempo que ya no gasta Reservas confirmando cupos por teléfono. Equivale a ≈ medio año de una persona de tiempo completo.
+      Estimación conservadora: ~49 min ahorrados/solicitud × ~50 solicitudes/mes, más el tiempo que ya no gasta Reservas
+      confirmando cupos por teléfono. Equivale a ≈ un cuarto de año de una persona de tiempo completo.
     </div>
   </section>
 
@@ -439,21 +1356,105 @@
   <section class="slide center">
     <span class="kicker">Impacto · Dinero</span>
     <h1>Valor generado para OxoHotel</h1>
-    <div class="two-money">
-      <div class="money-card">
-        <svg class="icon xl i-gold"><use href="#i-briefcase"/></svg>
-        <h4>Desarrollo externo evitado</h4>
-        <div class="amount">COP $25M – $50M</div>
-        <p>USD ≈ $6.000 – $12.000. Rango de mercado local para un desarrollo freelance/agencia a la medida de este alcance, construido internamente.</p>
+    <div class="two-money" style="margin-top:20px;">
+      <!-- Tarjeta 1: Desarrollo Externo Evitado -->
+      <div class="money-card"
+        style="display:flex; flex-direction:column; justify-content:space-between; text-align:left; padding:20px 24px; min-height:280px; box-sizing:border-box;">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <div
+              style="background:#fef3c7; color:#d97706; padding:8px; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+              <svg class="icon lg" style="margin:0; fill:none; stroke:currentColor; stroke-width:2;"
+                viewBox="0 0 24 24">
+                <rect x="3" y="8" width="18" height="12" rx="2" />
+                <path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+              </svg>
+            </div>
+            <h4 style="margin:0; font-size:15px; font-weight:800; color:var(--text);">Desarrollo Externo Evitado</h4>
+          </div>
+          <div class="amount"
+            style="font-family:'DM Mono', monospace; font-size:26px; font-weight:900; color:#d97706; margin-bottom:14px;">
+            COP $26.1M <span style="font-size:14px; font-weight:550; color:var(--text2); font-family:var(--font);"> (USD
+              ~$6.300)</span></div>
+
+          <!-- Box de desglose -->
+          <div
+            style="background:#fafafa; border:1px solid #f0f0f0; border-radius:10px; padding:10px 12px; font-size:11px; color:var(--text2); display:flex; flex-direction:column; gap:6px;">
+            <div style="display:flex; justify-content:space-between;">
+              <span>Esfuerzo estimado:</span>
+              <strong style="color:var(--text);">180 horas</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span>Tarifa de mercado (Senior Full-Stack):</span>
+              <strong style="color:var(--text);">COP $145.000 / hora</strong>
+            </div>
+            <div
+              style="border-top:1px dashed #e2e8f0; margin-top:4px; padding-top:4px; font-size:9.5px; color:var(--muted); line-height:1.3;">
+              <strong>Fórmula:</strong> 180h × $145.000/h = $26.100.000 COP
+            </div>
+          </div>
+        </div>
+
+        <div
+          style="font-size:9px; color:var(--muted); margin-top:12px; border-top:1px solid #f0f0f0; padding-top:8px; line-height:1.25;">
+          * Fuentes: Upwork Freelance Index & Torre Salary Report 2026 (tarifa promedio por hora para desarrolladores
+          Senior Full-Stack en LATAM).
+        </div>
       </div>
-      <div class="money-card">
-        <svg class="icon xl i-gold"><use href="#i-hourglass"/></svg>
-        <h4>Ahorro operativo estimado</h4>
-        <div class="amount">~COP 26 millones / año</div>
-        <p>Valor de las ~1.000 horas/año recuperadas, a costo hora administrativo de referencia.</p>
+
+      <!-- Tarjeta 2: Ahorro Operativo Estimado -->
+      <div class="money-card"
+        style="display:flex; flex-direction:column; justify-content:space-between; text-align:left; padding:20px 24px; min-height:280px; box-sizing:border-box;">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <div
+              style="background:#fef3c7; color:#d97706; padding:8px; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+              <svg class="icon lg" style="margin:0; fill:none; stroke:currentColor; stroke-width:2;"
+                viewBox="0 0 24 24">
+                <line x1="12" y1="2" x2="12" y2="6" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <path d="M4.93 4.93l2.83 2.83" />
+                <path d="M16.24 16.24l2.83 2.83" />
+                <path d="M2 12h4" />
+                <path d="M18 12h4" />
+                <path d="M4.93 19.07l2.83-2.83" />
+                <path d="M16.24 7.76l2.83-2.83" />
+              </svg>
+            </div>
+            <h4 style="margin:0; font-size:15px; font-weight:800; color:var(--text);">Ahorro Operativo Estimado</h4>
+          </div>
+          <div class="amount"
+            style="font-family:'DM Mono', monospace; font-size:26px; font-weight:900; color:#d97706; margin-bottom:14px;">
+            ~COP $12.7M <span style="font-size:14px; font-weight:550; color:var(--text2); font-family:var(--font);"> /
+              año</span></div>
+
+          <!-- Box de desglose -->
+          <div
+            style="background:#fafafa; border:1px solid #f0f0f0; border-radius:10px; padding:10px 12px; font-size:11px; color:var(--text2); display:flex; flex-direction:column; gap:6px;">
+            <div style="display:flex; justify-content:space-between;">
+              <span>Tiempo total recuperado:</span>
+              <strong style="color:var(--text);">~490 horas / año</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span>Costo hora admin. referencia:</span>
+              <strong style="color:var(--text);">COP $26.000 / hora</strong>
+            </div>
+            <div
+              style="border-top:1px dashed #e2e8f0; margin-top:4px; padding-top:4px; font-size:9.5px; color:var(--muted); line-height:1.3;">
+              <strong>Fórmula:</strong> 490h × $26.000/h = $12.740.000 COP/año
+            </div>
+          </div>
+        </div>
+
+        <div
+          style="font-size:9px; color:var(--muted); margin-top:12px; border-top:1px solid #f0f0f0; padding-top:8px; line-height:1.25;">
+          * Fuentes: Escala salarial interna de referencia OxoHotel para analistas administrativos (incluye salario base
+          + prestaciones de ley).
+        </div>
       </div>
     </div>
-    <div class="assumptions">Cifras estimadas con supuestos declarados, no cotizaciones ni auditoría formal — sirven para dimensionar el orden de magnitud del beneficio.</div>
+    <div class="assumptions">Cifras estimadas con supuestos declarados, no cotizaciones ni auditoría formal — sirven
+      para dimensionar el orden de magnitud del beneficio.</div>
   </section>
 
   <!-- 8. BENEFICIOS + QUÉ SIGUE -->
@@ -462,19 +1463,53 @@
     <h1>Otros beneficios y próximos pasos</h1>
     <div class="split">
       <div class="icon-grid-2">
-        <div class="icon-tile"><div class="icon-badge good"><svg class="icon lg i-good"><use href="#i-search"/></svg></div><div><div class="t">Trazabilidad total</div><div class="d">Quién, qué y cuándo</div></div></div>
-        <div class="icon-tile"><div class="icon-badge good"><svg class="icon lg i-good"><use href="#i-shield-check"/></svg></div><div><div class="t">Datos seguros</div><div class="d">Ya no en carpetas sueltas</div></div></div>
-        <div class="icon-tile"><div class="icon-badge good"><svg class="icon lg i-good"><use href="#i-globe"/></svg></div><div><div class="t">24/7</div><div class="d">Autoservicio sin horario</div></div></div>
-        <div class="icon-tile"><div class="icon-badge good"><svg class="icon lg i-good"><use href="#i-trending-up"/></svg></div><div><div class="t">Escalable</div><div class="d">Crece sin rediseñar</div></div></div>
+        <div class="icon-tile">
+          <div class="icon-badge good"><svg class="icon lg i-good">
+              <use href="#i-search" />
+            </svg></div>
+          <div>
+            <div class="t">Trazabilidad total</div>
+            <div class="d">Quién, qué y cuándo</div>
+          </div>
+        </div>
+        <div class="icon-tile">
+          <div class="icon-badge good"><svg class="icon lg i-good">
+              <use href="#i-shield-check" />
+            </svg></div>
+          <div>
+            <div class="t">Datos seguros</div>
+            <div class="d">Ya no en carpetas sueltas</div>
+          </div>
+        </div>
+        <div class="icon-tile">
+          <div class="icon-badge good"><svg class="icon lg i-good">
+              <use href="#i-globe" />
+            </svg></div>
+          <div>
+            <div class="t">24/7</div>
+            <div class="d">Autoservicio sin horario</div>
+          </div>
+        </div>
+        <div class="icon-tile">
+          <div class="icon-badge good"><svg class="icon lg i-good">
+              <use href="#i-trending-up" />
+            </svg></div>
+          <div>
+            <div class="t">Escalable</div>
+            <div class="d">Crece sin rediseñar</div>
+          </div>
+        </div>
       </div>
       <div class="photo-panel tint-gold">
-        <img src="https://images.unsplash.com/photo-1758518730384-be3d205838e8?auto=format&fit=crop&w=1200&q=75" alt="Acuerdo entre equipos de trabajo">
+        <img src="https://images.unsplash.com/photo-1758518730384-be3d205838e8?auto=format&fit=crop&w=1200&q=75"
+          alt="Acuerdo entre equipos de trabajo">
         <div class="tint"></div>
         <div class="cap">Un proyecto propio<small>Construido internamente, sin depender de terceros</small></div>
       </div>
     </div>
     <div class="assumptions" style="margin-top:20px;">
-      <strong>Próximos pasos:</strong> reforzar seguridad de contraseñas/credenciales · confirmar monitoreo de respaldos y alertas · activar catálogo de monedas si se necesita · manuales técnicos y de usuario ya entregados.
+      <strong>Próximos pasos:</strong> reforzar seguridad de contraseñas/credenciales · confirmar monitoreo de respaldos
+      y alertas · activar catálogo de monedas si se necesita · manuales técnicos y de usuario ya entregados.
     </div>
   </section>
 
@@ -485,9 +1520,10 @@
       <div class="sub">Sistema de Créditos Corporativos</div>
     </div>
     <span class="kicker">Cierre</span>
-    <h1 style="font-size:38px; max-width:700px;">Menos filas. Más decisiones.</h1>
-    <p style="max-width:600px;">El crédito corporativo de OxoHotel dejó de vivir en una hoja de cálculo — ahora vive en un sistema que audita, alerta y aprende por nosotros. Gracias por el espacio; ideas para la siguiente fase son bienvenidas.</p>
+    <h1 style="font-size:38px; max-width:700px;">Menos celdas. Más decisiones.</h1>
+    <p style="max-width:620px; font-size:16px; line-height:1.6; opacity:0.85;">De celdas rígidas a un flujo que acompaña y simplifica nuestro día a día. Gracias por su espacio y visión.</p>
   </section>
 
 </body>
+
 </html>
